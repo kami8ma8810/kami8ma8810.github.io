@@ -49,27 +49,25 @@ const browserSync = require('browser-sync').create();
 
 //パス設定
 const paths = {
-
 	html: {
-		// src: "./src/html/**/*.html",
 		src: "./src/*.html",
-		dist: "./"
+		dist: "./dist/"
 	},
 	styles: {
 		src: "./src/scss/**/*.scss",
-		dist: "./",
+		dist: "./dist/css/",
 		map: "./map"
 	},
 	scripts: {
 		src: "./src/js/**/*.js",
-		dist: "./js/",
+		dist: "./dist/js/",
 		map: "./js/map",
 		core: "src/js/core/**/*.js",
 		app: "src/js/app/**/*.js"
 	},
 	images: {
 		src: "./src/img/**/*.{jpg,jpeg,png,gif,svg}",
-		dist: "./img/"
+		dist: "./dist/img/"
 	}
 };
 
@@ -177,7 +175,7 @@ const browserSyncFunc = (done) => {
 	browserSync.init({
 		notify: false, //connectedのメッセージ非表示
 		server: {
-			baseDir: "./"
+			baseDir: "./dist/index.html"
 		},
 		reloadOnRestart: true
 	});
