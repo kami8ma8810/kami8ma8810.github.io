@@ -1,0 +1,16 @@
+section {
+	height: 100vh;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: aquamarine;
+}
+
+.js-fadein {
+	display: inline-block;
+	margin: 0 20px;
+	height: 60px;
+	width: 60px;
+	background: #888;
+	opacity: 0;
+}
