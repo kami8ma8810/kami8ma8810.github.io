@@ -1,3 +1,18 @@
+/* -------------------------------
+ *  file import
+ * ---------------------------- */
+
+body {
+  position: relative;
+  background: #fff;
+  color: #202020;
+  font-family: "Noto Sans JP", "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+button {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
 /* Page Loader */
 
 .js-loader {
@@ -8,10 +23,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-}
-
-.js-loader.is-loaded {
-  position: unset;
 }
 
 .js-loader::before {
@@ -42,6 +53,10 @@
   color: #fff;
   content: "welcome";
   pointer-events: none;
+}
+
+.js-loader.is-loaded {
+  position: unset;
 }
 
 .js-loader.is-loaded::before {
@@ -81,3 +96,23 @@ section {
   background: #888;
   opacity: 0;
 }
+
+/* -------------------------------
+ *  file import (Foundation)
+ * ---------------------------- */
+
+/* -------------------------------
+ *  file import (Layout)
+ * ---------------------------- */
+
+/* -------------------------------
+ *  file import (Object_Component)
+ * ---------------------------- */
+
+/* -------------------------------
+ *  file import (Object_Project)
+ * ---------------------------- */
+
+/* -------------------------------
+ *  file import (Object_Utility)
+//  * ---------------------------- */

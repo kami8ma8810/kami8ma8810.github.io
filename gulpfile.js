@@ -175,8 +175,9 @@ const browserSyncFunc = (done) => {
 	browserSync.init({
 		notify: false, //connectedのメッセージ非表示
 		server: {
-			baseDir: "./dist/index.html"
+			baseDir: "./",
 		},
+		startPath: './dist/index.html',
 		reloadOnRestart: true
 	});
 	done();

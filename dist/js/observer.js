@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, {
           duration: 1,
           opacity: 1,
-          rotation: '-360deg',
+          // rotation: '-360deg',
           autoAlpha: 1,
           y: 0,
           stagger: .2
