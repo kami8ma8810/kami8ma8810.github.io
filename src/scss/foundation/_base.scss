@@ -1,4 +1,4 @@
-@use "../setting/import"as f;
+@use "../import"as f;
 
 body {
 	font-family: 'Noto Sans JP',
@@ -10,6 +10,10 @@ body {
 	background: #fff;
 	position: relative;
 	color: f.$colorBlack;
+}
+
+p {
+	font-size: f.vw(20px);
 }
 
 button {

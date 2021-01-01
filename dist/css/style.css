@@ -1,12 +1,14 @@
-/* -------------------------------
- *  file import
- * ---------------------------- */
+@charset "UTF-8";
 
 body {
   position: relative;
   background: #fff;
   color: #202020;
   font-family: "Noto Sans JP", "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+p {
+  font-size: 20;
 }
 
 button {
@@ -95,6 +97,24 @@ section {
   margin: 0 20px;
   background: #888;
   opacity: 0;
+}
+
+.header {
+  /*↑ここまでが100vhの設定*/
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  /*for IE11*/
+  min-height: calc(var(--vh, 1vh) * 100);
+  background-image: url(https://drive.google.com/uc?export=view&id=1rZVg3bV-CFxvavnLTPvJ5HlIe0S_mbVn);
+}
+
+.header-title {
+  display: inline-block;
+  padding: 1vw;
+  background-color: #fff;
+  font-size: 3vw;
 }
 
 /* -------------------------------

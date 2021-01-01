@@ -1,14 +1,12 @@
 /* -------------------------------
  *  file import (Foundation)
  * ---------------------------- */
-// @use "./foundation/reset";
 @use "./foundation/base";
 
 /* -------------------------------
  *  file import (Layout)
  * ---------------------------- */
-// @use "layout/layout";
-// @use "layout/module";
+@use "./layout/header";
 
 /* -------------------------------
  *  file import (Object_Component)
