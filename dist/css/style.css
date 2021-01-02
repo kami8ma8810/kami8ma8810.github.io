@@ -7,6 +7,19 @@ body {
   font-family: "Noto Sans JP", "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
 
+section {
+  -ms-flex-pack: distribute;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+  background-color: aquamarine;
+}
+
 p {
   margin: 10%;
   font-size: 16px;
@@ -84,19 +97,6 @@ button {
   transition: all 0.3s ease-in;
 }
 
-section {
-  -ms-flex-pack: distribute;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 100vh;
-  background-color: aquamarine;
-}
-
 .js-fadein {
   display: inline-block;
   width: 60px;
@@ -155,6 +155,10 @@ section {
 }
 
 @media screen and (min-width: 768px) {
+  section {
+    background-color: brown;
+  }
+
   p {
     font-size: 18px;
   }

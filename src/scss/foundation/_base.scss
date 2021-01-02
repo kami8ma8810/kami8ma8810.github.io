@@ -12,6 +12,19 @@ body {
 	color: f.$colorBlack;
 }
 
+section {
+	height: 100vh;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: aquamarine;
+
+	@include f.mq(md) {
+		background-color: brown;
+	}
+}
+
+
 p {
 	// @include f.vw(40);
 	// @include f.rem(30);
@@ -85,13 +98,6 @@ button {
 	}
 }
 
-section {
-	height: 100vh;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	background-color: aquamarine;
-}
 
 .js-fadein {
 	display: inline-block;
