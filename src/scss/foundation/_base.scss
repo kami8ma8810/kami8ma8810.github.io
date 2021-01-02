@@ -118,18 +118,38 @@ button {
 	top: 0;
 	// z-index: 99;
 	// overflow: hidden;
+	background: #707Cbc;
 
 	&.first {
-		background: #fcc419;
+		// background: #fcc419;
 	}
 
 	&.second {
-		background: #fcc419;
+		// background: #fcc419;
 		left: 33.33%;
 	}
 
 	&.third {
-		background: #fcc419;
+		// background: #fcc419;
 		left: 66.66%;
 	}
+}
+
+.js-type {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 110;
+	color: #fff;
+	font-size: 5vw;
+	width: 100%;
+	text-align: center;
+
+	&.is-loaded {
+		opacity: 0;
+		transition: all 1s ease;
+	}
+
+
 }

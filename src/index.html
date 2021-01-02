@@ -20,10 +20,12 @@
 	<link rel="stylesheet" href="./css/style.css">
 	<!-- Polyfill for IntersectionObserver -->
 	<script src="./js/polyfil-intersectionobserver.js"></script>
+
 </head>
 
 <body>
 	<div id="js-loader" class="js-loader overlay-container">
+		<p id="ityped" class="js-type"></p>
 		<div class="overlay first"></div>
 		<div class="overlay second"></div>
 		<div class="overlay third"></div>
@@ -65,9 +67,22 @@
 	<footer class="footer">
 		<p><small>&copy;2020-2021 Kamiyama Hayato</small></p>
 	</footer>
+	<script src="https://unpkg.com/ityped@1.0.3"></script>
+	<script>
+		ityped.init("#ityped", {
+			strings: [
+				"Now Loading"
+			],
+			typeSpeed: 100,
+			backSpeed: 100,
+			startDelay: 500,
+			loop: true
+		});
+
+	</script>
 	<script>
 		(function () {
-			setTimeout(init, 3000);
+			setTimeout(init, 5000);
 			// Loading
 			function init() {
 				document.getElementById('js-loader').classList.add('is-loaded');
@@ -81,12 +96,18 @@
 
 				gsap.to(".second", {
 					duration: 1.5,
-					delay: 0.6,
+					delay: 0.7,
 					top: "-100%",
 					ease: "expo.inOut"
 				});
 
 				gsap.to(".third", {
+					duration: 1.5,
+					delay: 0.9,
+					top: "-100%",
+					ease: "expo.inOut"
+				});
+				gsap.to(".js-type", {
 					duration: 1.5,
 					delay: 0.7,
 					top: "-100%",
@@ -97,6 +118,8 @@
 		})();
 
 	</script>
+
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/ie-buster@1.1.0/dist/ie-buster.min.js"></script>
