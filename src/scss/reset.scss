@@ -539,33 +539,33 @@ template {
  * ---------------------------- */
 
 // iphoneの「視差効果を減らす」設定
-@media (prefers-reduced-motion: reduce) {
+// @media (prefers-reduced-motion: reduce) {
 
-	*,
-	::before,
-	::after {
-		animation-delay: -1ms !important;
-		animation-duration: 1ms !important;
-		animation-iteration-count: 1 !important;
-		transition-delay: 0s !important;
-		transition-duration: 1ms !important;
-		background-attachment: initial !important;
-		scroll-behavior: auto !important;
-	}
-}
+// 	*,
+// 	::before,
+// 	::after {
+// 		animation-delay: -1ms !important;
+// 		animation-duration: 1ms !important;
+// 		animation-iteration-count: 1 !important;
+// 		transition-delay: 0s !important;
+// 		transition-duration: 1ms !important;
+// 		background-attachment: initial !important;
+// 		scroll-behavior: auto !important;
+// 	}
+// }
 
 // 一部のみ除外したい場合（除外したい要素に.safe-animationをつける）
-@media (prefers-reduced-motion: reduce) {
+// @media (prefers-reduced-motion: reduce) {
 
-	:not(.safe-animation),
-	:not(.safe-animation)::before,
-	:not(.safe-animation)::after {
-		animation-delay: -1ms !important;
-		animation-duration: 1ms !important;
-		animation-iteration-count: 1 !important;
-		transition-delay: 0s !important;
-		transition-duration: 1ms !important;
-		background-attachment: initial !important;
-		scroll-behavior: auto !important;
-	}
-}
+// 	:not(.safe-animation),
+// 	:not(.safe-animation)::before,
+// 	:not(.safe-animation)::after {
+// 		animation-delay: -1ms !important;
+// 		animation-duration: 1ms !important;
+// 		animation-iteration-count: 1 !important;
+// 		transition-delay: 0s !important;
+// 		transition-duration: 1ms !important;
+// 		background-attachment: initial !important;
+// 		scroll-behavior: auto !important;
+// 	}
+// }

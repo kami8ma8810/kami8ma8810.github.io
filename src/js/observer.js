@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 	const options = {
 		root: null,
-		rootMargin: '-50% 0px',
+		rootMargin: '-30% 0px',
 	};
 	//監視する要素を指定
 	const observerElements = document.querySelectorAll('.js-trigger');

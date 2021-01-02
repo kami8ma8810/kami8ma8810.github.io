@@ -20,26 +20,11 @@ section {
   background-color: aquamarine;
 }
 
-p {
-  margin: 10%;
-  font-size: 16px;
-}
-
 button {
   font-family: "Noto Sans JP", sans-serif;
 }
 
 /* Page Loader */
-
-.js-loader {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 
 .js-loader::before {
   -webkit-transition: all 0.5s ease-in;
@@ -61,20 +46,21 @@ button {
 }
 
 .js-loader::after {
-  -webkit-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
   z-index: 110;
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 50px;
-  height: 50px;
-  margin: -25px 0 0 -25px;
+  transform: translate(-50%, -50%);
   border-radius: 50px;
   color: #fff;
+  font-size: 8vw;
   content: "welcome";
   pointer-events: none;
-  transition: all 0.5s ease-in;
+  transition: all 0.4s ease-in;
 }
 
 .js-loader.is-loaded {
@@ -95,6 +81,12 @@ button {
   z-index: -1;
   opacity: 0;
   transition: all 0.3s ease-in;
+}
+
+.js-trigger {
+  width: 100%;
+  height: 500px;
+  background: blue;
 }
 
 .js-fadein {
@@ -144,26 +136,8 @@ button {
  *  file import (Object_Utility)
 //  * ---------------------------- */
 
-@media screen and (min-width: 430px) {
-  p {
-    font-size: calc(0.5917159763vw + 13.4556213018px);
-  }
-
-  p {
-    margin: calc(2.9585798817vw + -2.7218934911%);
-  }
-}
-
 @media screen and (min-width: 768px) {
   section {
     background-color: brown;
-  }
-
-  p {
-    font-size: 18px;
-  }
-
-  p {
-    margin: 20%;
   }
 }
