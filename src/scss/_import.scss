@@ -1,8 +1,5 @@
 // file import
-
-// @forward "variable";
 @forward "./mixin/visually-hidden";
-// @forward "animation";
-@forward "./function/vw";
+@forward "./mixin/fontsize";
+@forward "./mixin/viewportscale";
 @forward "./setting/color";
-// @forward "mq";

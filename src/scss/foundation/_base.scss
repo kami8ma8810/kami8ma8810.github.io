@@ -13,8 +13,14 @@ body {
 }
 
 p {
-	font-size: f.vw(20px);
+	// @include f.vw(40);
+	// @include f.rem(30);
+	@include f.viewScale(font-size, 430px, 16px, 768px, 18px);
+	@include f.viewScale(margin, 430px, 10%, 768px, 20%);
+
 }
+
+
 
 button {
 	font-family: 'Noto Sans JP', sans-serif;
@@ -42,6 +48,8 @@ button {
 		text-align: center;
 		background: #707c8c;
 		pointer-events: none;
+		transition: all .5s ease-in;
+
 	}
 
 	&::after {
@@ -56,6 +64,8 @@ button {
 		margin: -25px 0 0 -25px;
 		pointer-events: none;
 		color: #fff;
+		transition: all .5s ease-in;
+
 	}
 }
 
