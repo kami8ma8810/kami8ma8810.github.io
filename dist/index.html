@@ -19,7 +19,12 @@
   <script src="./js/polyfil-intersectionobserver.js"></script>
 </head>
 
-<body id="js-loader" class="js-loader">
+<body>
+  <div id="js-loader" class="js-loader overlay-container">
+    <div class="overlay first"></div>
+    <div class="overlay second"></div>
+    <div class="overlay third"></div>
+  </div>
   <header class="header">
     <h1 class="header-title">Welcome to portfolio site.</h1>
     <nav class="header-nav">
@@ -62,6 +67,28 @@
       // Loading
       function init() {
         document.getElementById('js-loader').classList.add('is-loaded');
+        /* OVERLAY */
+        gsap.to(".first", {
+          duration: 1.5,
+          delay: 0.5,
+          top: "-100%",
+          ease: "expo.inOut"
+        });
+
+        gsap.to(".second", {
+          duration: 1.5,
+          delay: 0.6,
+          top: "-100%",
+          ease: "expo.inOut"
+        });
+
+        gsap.to(".third", {
+          duration: 1.5,
+          delay: 0.7,
+          top: "-100%",
+          ease: "expo.inOut"
+        });
+
       }
     })();
   </script>

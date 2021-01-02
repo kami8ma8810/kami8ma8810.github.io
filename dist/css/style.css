@@ -26,76 +26,36 @@ button {
 
 /* Page Loader */
 
-.js-loader::before {
-  -webkit-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.overlay-container {
   z-index: 110;
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #707c8c;
-  text-align: center;
-  content: "";
-  pointer-events: none;
-  transition: all 0.5s ease-in;
 }
 
-.js-loader::after {
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transition: all 0.4s ease-in;
-  -o-transition: all 0.4s ease-in;
-  z-index: 110;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50px;
-  color: #fff;
-  font-size: 8vw;
-  content: "welcome";
-  pointer-events: none;
-  transition: all 0.4s ease-in;
-}
-
-.js-loader.is-loaded {
-  position: unset;
-}
-
-.js-loader.is-loaded::before {
-  -webkit-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
-  z-index: -1;
-  opacity: 0;
-  transition: all 0.5s ease-in;
-}
-
-.js-loader.is-loaded::after {
-  -webkit-transition: all 0.3s ease-in;
-  -o-transition: all 0.3s ease-in;
-  z-index: -1;
-  opacity: 0;
-  transition: all 0.3s ease-in;
-}
-
-.js-trigger {
+.overlay {
+  position: absolute;
+  top: 0;
   width: 100%;
-  height: 500px;
-  background: blue;
+  height: 100%;
 }
 
-.js-fadein {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  margin: 0 20px;
-  background: #888;
-  opacity: 0;
+.overlay.first {
+  background: #fcc419;
+}
+
+.overlay.second {
+  left: 33.33%;
+  background: #fcc419;
+}
+
+.overlay.third {
+  left: 66.66%;
+  background: #fcc419;
 }
 
 .header {

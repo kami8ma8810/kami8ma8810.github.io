@@ -29,74 +29,107 @@ button {
 }
 
 /* Page Loader */
-.js-loader {
-	// position: fixed;
-	// top: 0;
-	// right: 0;
-	// bottom: 0;
-	// left: 0;
-	// width: 100%;
-	// height: 100%;
+// .js-loader {
+// position: fixed;
+// top: 0;
+// right: 0;
+// bottom: 0;
+// left: 0;
+// width: 100%;
+// height: 100%;
 
-	&::before {
-		content: '';
-		position: fixed;
-		z-index: 110;
-		top: 0;
-		left: 0;
-		display: flex;
-		width: 100%;
-		height: 100%;
-		text-align: center;
-		background: #707c8c;
-		pointer-events: none;
-		transition: all .5s ease-in;
+// 	&::before {
+// 		content: '';
+// 		position: fixed;
+// 		z-index: 110;
+// 		top: 0;
+// 		left: 0;
+// 		display: flex;
+// 		width: 100%;
+// 		height: 100%;
+// 		text-align: center;
+// 		background: #707c8c;
+// 		pointer-events: none;
+// 		transition: all .5s ease-in;
 
-	}
+// 	}
 
-	&::after {
-		content: 'welcome';
-		position: fixed;
-		z-index: 110;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border-radius: 50px;
-		pointer-events: none;
-		font-size: 8vw;
-		color: #fff;
-		transition: all .4s ease-in;
+// 	&::after {
+// 		content: 'welcome';
+// 		position: fixed;
+// 		z-index: 110;
+// 		top: 50%;
+// 		left: 50%;
+// 		transform: translate(-50%, -50%);
+// 		border-radius: 50px;
+// 		pointer-events: none;
+// 		font-size: 8vw;
+// 		color: #fff;
+// 		transition: all .4s ease-in;
 
-	}
-}
+// 	}
+// }
 
-.js-loader.is-loaded {
-	position: unset;
+// .js-loader.is-loaded {
+// 	position: unset;
 
-	&::before {
-		opacity: 0;
-		transition: all .5s ease-in;
-		z-index: -1;
-	}
+// 	&::before {
+// 		opacity: 0;
+// 		transition: all .5s ease-in;
+// 		z-index: -1;
+// 	}
 
-	&::after {
-		opacity: 0;
-		transition: all .3s ease-in;
-		z-index: -1;
-	}
-}
+// 	&::after {
+// 		opacity: 0;
+// 		transition: all .3s ease-in;
+// 		z-index: -1;
+// 	}
+// }
 
-.js-trigger {
+// .js-trigger {
+// 	width: 100%;
+// 	height: 500px;
+// 	background: blue;
+// }
+
+// .js-fadein {
+// 	display: inline-block;
+// 	margin: 0 20px;
+// 	height: 60px;
+// 	width: 60px;
+// 	background: #888;
+// 	opacity: 0;
+// }
+.overlay-container {
+	position: fixed;
+	z-index: 110;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	width: 100%;
-	height: 500px;
-	background: blue;
+	height: 100%;
 }
 
-.js-fadein {
-	display: inline-block;
-	margin: 0 20px;
-	height: 60px;
-	width: 60px;
-	background: #888;
-	opacity: 0;
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	// z-index: 99;
+	// overflow: hidden;
+
+	&.first {
+		background: #fcc419;
+	}
+
+	&.second {
+		background: #fcc419;
+		left: 33.33%;
+	}
+
+	&.third {
+		background: #fcc419;
+		left: 66.66%;
+	}
 }
