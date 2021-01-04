@@ -70,36 +70,38 @@ button {
 // 	}
 // }
 
-// .js-loader.is-loaded {
-// 	position: unset;
+.js-loader.is-loaded {
+	// position: unset;
+	z-index: -1;
 
-// 	&::before {
-// 		opacity: 0;
-// 		transition: all .5s ease-in;
-// 		z-index: -1;
-// 	}
+	&::before {
+		opacity: 0;
+		transition: all .5s ease-in;
+		z-index: -1;
+	}
 
-// 	&::after {
-// 		opacity: 0;
-// 		transition: all .3s ease-in;
-// 		z-index: -1;
-// 	}
-// }
+	&::after {
+		opacity: 0;
+		transition: all .3s ease-in;
+		z-index: -1;
+	}
+}
 
-// .js-trigger {
-// 	width: 100%;
-// 	height: 500px;
-// 	background: blue;
-// }
+.js-trigger {
+	width: 100%;
+	height: 500px;
+	background: lightsalmon;
+}
 
-// .js-fadein {
-// 	display: inline-block;
-// 	margin: 0 20px;
-// 	height: 60px;
-// 	width: 60px;
-// 	background: #888;
-// 	opacity: 0;
-// }
+.js-fadein {
+	display: inline-block;
+	margin: 0 20px;
+	height: 60px;
+	width: 60px;
+	background: #888;
+	opacity: 0;
+}
+
 .overlay-container {
 	position: fixed;
 	z-index: 110;
@@ -145,11 +147,4 @@ button {
 	font-size: 5vw;
 	width: 100%;
 	text-align: center;
-
-	&.is-loaded {
-		opacity: 0;
-		transition: all 1s ease;
-	}
-
-
 }
