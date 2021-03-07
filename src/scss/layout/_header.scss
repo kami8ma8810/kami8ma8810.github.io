@@ -1,9 +1,11 @@
+@use "../import"as f;
+
 .header {
 	min-height: 100vh;
-	/*for IE11*/
+	// for IE11
 	min-height: calc(var(--vh, 1vh) * 100);
-	background-image: url(https://drive.google.com/uc?export=view&id=1rZVg3bV-CFxvavnLTPvJ5HlIe0S_mbVn);
-	/*↑ここまでが100vhの設定*/
+	background: f.$colorWhite;
+	// ここまでが100vhの設定
 	display: grid;
 	place-items: center;
 }

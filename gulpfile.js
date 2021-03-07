@@ -30,6 +30,9 @@ const fibers = require('fibers');
 // JavaScript
 const babel = require("gulp-babel");
 const uglify = require("gulp-uglify");
+const webpack = require("webpack");
+const webpackStream = require("webpack-stream"); //gulpでwebpackを使うためのプラグイン
+const webpackConfig = require("./webpack.config");
 
 // 画像圧縮
 const imagemin = require("gulp-imagemin");
@@ -124,23 +127,26 @@ const compileSass = () => {
 };
 
 // JavaScriptコンパイル
-const jsBabel = () => {
-	return src(paths.scripts.src)
-		.pipe(
-			plumber({
-				errorHandler: notify.onError('Error: <%= error.message %>')
-			})
-		)
-		.pipe(babel({
-			presets: ['@babel/preset-env']
-		}))
-		.pipe(dest(paths.scripts.dist))
-		.pipe(uglify())
-		.pipe(rename({
-			extname: '.min.js'
-		}))
-		.pipe(dest(paths.scripts.dist));
-};
+// const jsBabel = () => {
+// 	return src(paths.scripts.src)
+// 		.pipe(
+// 			plumber({
+// 				errorHandler: notify.onError('Error: <%= error.message %>')
+// 			})
+// 		)
+// 		.pipe(babel({
+// 			presets: ['@babel/preset-env']
+// 		}))
+// 		.pipe(dest(paths.scripts.dist))
+// 		.pipe(uglify())
+// 		.pipe(rename({
+// 			extname: '.min.js'
+// 		}))
+// 		.pipe(dest(paths.scripts.dist));
+// };
+
+
+
 
 // 画像圧縮
 const imagesFunc = () => {
@@ -161,6 +167,16 @@ const imagesFunc = () => {
 				imageminSvgo({
 					plugins: [{
 						removeViewbox: false //フォトショやイラレで書きだされるviewboxを消さない
+					}, {
+						removeMetadata: false
+					}, {
+						removeUnknownsAndDefaults: false
+					}, {
+						convertShapeToPath: false
+					}, {
+						collapseGroups: false
+					}, {
+						cleanupIDs: false
 					}]
 				})
 			], {
@@ -170,7 +186,7 @@ const imagesFunc = () => {
 		.pipe(dest(paths.images.dist));
 };
 
-// ブラウザシンク 同期処理
+// ローカルサーバー起動
 const browserSyncFunc = (done) => {
 	browserSync.init({
 		notify: false, //connectedのメッセージ非表示
@@ -183,17 +199,27 @@ const browserSyncFunc = (done) => {
 	done();
 };
 
-// ブラウザシンク リロード処理
+// ブラウザ自動リロード
 const browserReloadFunc = (done) => {
 	browserSync.reload();
 	done();
+};
+
+//webpack
+const bundleJs = () => {
+	// webpackStreamの第2引数にwebpackを渡す
+	return webpackStream(webpackConfig, webpack)
+		.pipe(dest("./dist/js"));
+	browserReloadFunc();
 };
 
 // ファイル監視
 const watchFiles = () => {
 	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
 	watch(paths.styles.src, series(compileSass, browserReloadFunc));
-	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
+	// watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
+	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
+	watch(paths.scripts.src, bundleJs);
 	watch(paths.images.src, series(imagesFunc, browserReloadFunc));
 };
 

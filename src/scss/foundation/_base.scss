@@ -7,68 +7,10 @@ body {
 		"Hiragino Kaku Gothic ProN",
 		"Hiragino Sans",
 		Meiryo, sans-serif;
-	background: #fff;
+	background: #f7f7f7;
 	position: relative;
-	color: f.$colorBlack;
+	color: f.$colorDarkBlue;
 }
-
-section {
-	height: 100vh;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	background-color: aquamarine;
-
-	@include f.mq(md) {
-		background-color: brown;
-	}
-}
-
-button {
-	font-family: 'Noto Sans JP', sans-serif;
-}
-
-/* Page Loader */
-// .js-loader {
-// position: fixed;
-// top: 0;
-// right: 0;
-// bottom: 0;
-// left: 0;
-// width: 100%;
-// height: 100%;
-
-// 	&::before {
-// 		content: '';
-// 		position: fixed;
-// 		z-index: 110;
-// 		top: 0;
-// 		left: 0;
-// 		display: flex;
-// 		width: 100%;
-// 		height: 100%;
-// 		text-align: center;
-// 		background: #707c8c;
-// 		pointer-events: none;
-// 		transition: all .5s ease-in;
-
-// 	}
-
-// 	&::after {
-// 		content: 'welcome';
-// 		position: fixed;
-// 		z-index: 110;
-// 		top: 50%;
-// 		left: 50%;
-// 		transform: translate(-50%, -50%);
-// 		border-radius: 50px;
-// 		pointer-events: none;
-// 		font-size: 8vw;
-// 		color: #fff;
-// 		transition: all .4s ease-in;
-
-// 	}
-// }
 
 .js-loader.is-loaded {
 	// position: unset;
@@ -90,7 +32,6 @@ button {
 .js-trigger {
 	width: 100%;
 	height: 500px;
-	background: lightsalmon;
 }
 
 .js-fadein {
@@ -120,9 +61,10 @@ button {
 	top: 0;
 	// z-index: 99;
 	// overflow: hidden;
-	background: #707Cbc;
+	background: f.$colorSky;
 
 	&.first {
+		left: 0;
 		// background: #fcc419;
 	}
 
