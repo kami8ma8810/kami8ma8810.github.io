@@ -4,7 +4,7 @@
 
 body {
   position: relative;
-  background: #f7f7f7;
+  background: #f8f5ee;
   color: #275363;
   font-family: "Noto Sans JP", "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
@@ -27,11 +27,6 @@ body {
   z-index: -1;
   opacity: 0;
   transition: all 0.3s ease-in;
-}
-
-.js-trigger {
-  width: 100%;
-  height: 500px;
 }
 
 .js-fadein {

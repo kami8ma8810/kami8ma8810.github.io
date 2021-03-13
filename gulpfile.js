@@ -98,6 +98,7 @@ const compileSass = () => {
 	return src(paths.styles.src, {
 			sourcemaps: true
 		})
+
 		.pipe(plumber({
 			errorHandler: notify.onError('Error: <%= error.message %>')
 		}))
@@ -127,26 +128,23 @@ const compileSass = () => {
 };
 
 // JavaScriptコンパイル
-// const jsBabel = () => {
-// 	return src(paths.scripts.src)
-// 		.pipe(
-// 			plumber({
-// 				errorHandler: notify.onError('Error: <%= error.message %>')
-// 			})
-// 		)
-// 		.pipe(babel({
-// 			presets: ['@babel/preset-env']
-// 		}))
-// 		.pipe(dest(paths.scripts.dist))
-// 		.pipe(uglify())
-// 		.pipe(rename({
-// 			extname: '.min.js'
-// 		}))
-// 		.pipe(dest(paths.scripts.dist));
-// };
-
-
-
+const jsBabel = () => {
+	return src(paths.scripts.src)
+		.pipe(
+			plumber({
+				errorHandler: notify.onError('Error: <%= error.message %>')
+			})
+		)
+		.pipe(babel({
+			presets: ['@babel/preset-env']
+		}))
+		.pipe(dest(paths.scripts.dist))
+		.pipe(uglify())
+		.pipe(rename({
+			extname: '.min.js'
+		}))
+		.pipe(dest(paths.scripts.dist));
+};
 
 // 画像圧縮
 const imagesFunc = () => {
@@ -206,20 +204,19 @@ const browserReloadFunc = (done) => {
 };
 
 //webpack
-const bundleJs = () => {
-	// webpackStreamの第2引数にwebpackを渡す
-	return webpackStream(webpackConfig, webpack)
-		.pipe(dest("./dist/js"));
-	browserReloadFunc();
-};
+// const bundleJs = () => {
+// 	return webpackStream(webpackConfig, webpack)
+// 		.pipe(dest("./dist/js"));
+// 	browserReloadFunc();
+// };
 
 // ファイル監視
 const watchFiles = () => {
 	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
 	watch(paths.styles.src, series(compileSass, browserReloadFunc));
-	// watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
+	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
 	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
-	watch(paths.scripts.src, bundleJs);
+	// watch(paths.scripts.src, bundleJs);
 	watch(paths.images.src, series(imagesFunc, browserReloadFunc));
 };
 
