@@ -140,7 +140,7 @@ const compileSass = () => {
 				sourcemaps: "./map",
 			})
 		)
-		.pipe(browserReloadFunc.stream());
+		.pipe(browserSync.stream());
 };
 
 // JavaScriptコンパイル
@@ -231,6 +231,11 @@ const browserReloadFunc = (done) => {
 	browserSync.reload();
 	done();
 };
+const browserReloadStream = (done) => {
+	browserSync.stream();
+	done();
+};
+
 
 //webpack
 // const bundleJs = () => {
@@ -242,7 +247,8 @@ const browserReloadFunc = (done) => {
 // ファイル監視
 const watchFiles = () => {
 	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
-	watch(paths.styles.src, series(compileSass, browserReloadFunc));
+	watch(paths.styles.src, series(compileSass, browserReloadStream));
+	// watch(paths.styles.src, series(compileSass, browserReloadStream));
 	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
 	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
 	// watch(paths.scripts.src, bundleJs);
@@ -254,5 +260,6 @@ const cleanMap = () => {
 	return del([paths.styles.map, paths.scripts.map]);
 };
 
+// npx gulp実行処理
 exports.default = parallel(watchFiles, browserSyncFunc);
 exports.cleanmap = cleanMap;
