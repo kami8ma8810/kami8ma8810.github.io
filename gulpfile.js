@@ -231,11 +231,6 @@ const browserReloadFunc = (done) => {
 	browserSync.reload();
 	done();
 };
-const browserReloadStream = (done) => {
-	browserSync.stream();
-	done();
-};
-
 
 //webpack
 // const bundleJs = () => {
@@ -248,7 +243,6 @@ const browserReloadStream = (done) => {
 const watchFiles = () => {
 	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
 	watch(paths.styles.src, series(compileSass, browserReloadStream));
-	// watch(paths.styles.src, series(compileSass, browserReloadStream));
 	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
 	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
 	// watch(paths.scripts.src, bundleJs);
