@@ -140,7 +140,7 @@ const compileSass = () => {
 				sourcemaps: "./map",
 			})
 		)
-		.pipe(browserSync.stream());
+	// .pipe(browserSync.stream());
 };
 
 // JavaScriptコンパイル
@@ -231,18 +231,15 @@ const browserReloadFunc = (done) => {
 	browserSync.reload();
 	done();
 };
-
-//webpack
-// const bundleJs = () => {
-// 	return webpackStream(webpackConfig, webpack)
-// 		.pipe(dest("./dist/js"));
-// 	browserReloadFunc();
-// };
+const browserReloadStream = (done) => {
+	browserSync.stream();
+	done();
+};
 
 // ファイル監視
 const watchFiles = () => {
 	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
-	watch(paths.styles.src, series(compileSass, browserReloadStream));
+	watch(paths.styles.src, series(compileSass, browserReloadFunc));
 	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
 	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
 	// watch(paths.scripts.src, bundleJs);
