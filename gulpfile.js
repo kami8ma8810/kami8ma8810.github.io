@@ -1,3 +1,4 @@
+//gulp.〇〇の処理は全部定数でまとめる
 const {
 	src,
 	dest,
@@ -115,25 +116,25 @@ const compileSass = () => {
 					cascade: false,
 					grid: "autoplace", // IE11のgrid対応('-ms-')
 				}),
-				cssDeclSort({
-					order: "smacss",
-				}),
+				// cssDeclSort({
+				// 	order: "smacss",
+				// }),
 			])
 		)
 		.pipe(gcmq())
 		.pipe(dest(paths.styles.dist))
 		.pipe(cleanCss())
-		.pipe(
-			rename({
-				extname: ".min.css",
-			})
-		)
-		.pipe(
-			dest(paths.styles.dist, {
-				sourcemaps: "./map",
-			})
-		)
-	// .pipe(browserSync.stream());
+		// .pipe(
+		// 	rename({
+		// 		extname: ".min.css",
+		// 	})
+		// )
+		// .pipe(
+		// 	dest(paths.styles.dist, {
+		// 		sourcemaps: "./map",
+		// 	})
+		// )
+		.pipe(browserSync.stream());
 };
 
 // JavaScriptコンパイル
@@ -224,15 +225,11 @@ const browserReloadFunc = (done) => {
 	browserSync.reload();
 	done();
 };
-const browserReloadStream = (done) => {
-	browserSync.stream();
-	done();
-};
 
 // ファイル監視
 const watchFiles = () => {
 	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
-	watch(paths.styles.src, series(compileSass, browserReloadFunc));
+	watch(paths.styles.src, series(compileSass));
 	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
 	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
 	// watch(paths.scripts.src, bundleJs);
