@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	};
 	//監視する要素を指定
 	const observerElements = document.querySelectorAll('.js-trigger');
+	observerElements.forEach(el => {
+		observerFunc.observe(el);
+	});
 
 	const observerFunc = new IntersectionObserver(
 		(entries) => {
@@ -29,8 +32,4 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 		options
 	);
-
-	observerElements.forEach(el => {
-		observerFunc.observe(el);
-	});
 }, false);
