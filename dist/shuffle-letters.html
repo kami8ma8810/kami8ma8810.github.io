@@ -29,6 +29,10 @@ body {
         margin-right: auto;
         margin-bottom: 100vh;
       }
+			.demo1,.demo2{
+				line-height: 2;
+				font-size: 18px;
+			}
       .text {
         margin-bottom: 100vh;
       }
@@ -53,12 +57,16 @@ body {
 <h1 class="title">shuffle-letters DEMO</h1>
 </section>
 <section class="text-wrap">
-<h2>公式サイトのデモ</h2>
-<p class="demo" hidden>男女男男女男女</p>
-<p class="demo" hidden>男女男男女男女男女男男女男女男女男男女男女</p>
-<p class="demo" hidden>男女男男女男女男女男男女男女</p>
-<p class="demo" hidden>男女男男女男女男女男男女男女男女男男女男女男女男男女男女男女男男女男女男女男男女男女</p>
-<p class="demo" hidden>男女男男女男女男女男男女男女男女男男女男女男女男男女男女</p>
+<h2>公式サイトのデモ（JavaScriptに書いたテキストを表示）</h2>
+<p class="demo1">ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる</p>
+<p class="demo1">ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる</p>
+<p class="demo1">ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる</p>
+<h2>公式サイトのデモ（HTMLに書いたテキストを表示 hidden属性を使用）</h2>
+<p class="demo2" hidden>男女男男女男女</p>
+<p class="demo2" hidden>男女男男女男女男女男男女男女男女男男女男女</p>
+<p class="demo2" hidden>男女男男女男女男女男男女男女</p>
+<p class="demo2" hidden>男女男男女男女男女男男女男女男女男男女男女男女男男女男女男女男男女男女男女男男女男女</p>
+<p class="demo2" hidden>男女男男女男女男女男男女男女男女男男女男女男女男男女男女</p>
 </section>
 <section class="text-wrap js-observe">
 <h2>スクロールするとシャッフルしながら表示されます。</h2>
@@ -72,11 +80,14 @@ body {
 <script src="./js/shuffle-letters.js"></script>
 <script>
 ('use strict');
-      let textTarget = document.querySelectorAll('.demo');
-      for (let i = 0; i < textTarget.length; i++) {
-        textTarget[i].hidden = false;
+      let textTarget = document.querySelectorAll('.demo1');
+			shuffleLetters(textTarget);
+
+      let textTargetHidden = document.querySelectorAll('.demo2');
+      for (let i = 0; i < textTargetHidden.length; i++) {
+        textTargetHidden[i].hidden = false;
       }
-      shuffleLetters(textTarget, {
+      shuffleLetters(textTargetHidden, {
         // option
         step: 5,//どのくらいの文字数を先にシャッフルさせるか
         fps: 10,//スピード
