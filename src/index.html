@@ -23,14 +23,14 @@
 </head>
 
 <body>
-	<div id="js-loader" class="js-loader overlay-container">
+	<!-- <div id="js-loader" class="js-loader overlay-container">
 		<p id="js-type" class="js-type"></p>
 		<div class="overlay first"></div>
 		<div class="overlay second"></div>
 		<div class="overlay third"></div>
-	</div>
+	</div> -->
 	<header class="header">
-		<h1 class="header-title">Welcome to portfolio site.</h1>
+		<h1 class="header-title">portfolio test</h1>
 		<a href="gorilla.html">ゴリラテストページ</a>
 		<nav class="header-nav">
 			<p>テスト</p>
@@ -217,81 +217,9 @@
 	</main>
 
 	<footer class="footer">
-		<p>Welcome and thank you for visiting my website.</p>
 		<p><small>&copy;2021 Kamiyama Hayato</small></p>
 	</footer>
-	<script src="https://unpkg.com/ityped@1.0.3"></script>
-	<script>
-		ityped.init("#js-type", {
-			strings: ["Now Loading", "Welcome"],
-			typeSpeed: 100,
-			backSpeed: 100,
-			startDelay: 500,
-			loop: false,
-			showCursor: false,
-		});
 
-	</script>
-	<script>
-		(function () {
-			// スクロールを禁止する関数
-			function noScroll(event) {
-				event.preventDefault();
-			}
-			// スクロール禁止SP
-			document.addEventListener("touchmove", noScroll, {
-				passive: false,
-			});
-			// スクロール禁止PC
-			document.addEventListener("mousewheel", noScroll, {
-				passive: false,
-			});
-
-			setTimeout(init, 6000);
-
-			function init() {
-				// スクロール禁止を解除SP
-				document.removeEventListener("touchmove", noScroll, {
-					passive: false,
-				});
-				// スクロール禁止を解除PC
-				document.removeEventListener("mousewheel", noScroll, {
-					passive: false,
-				});
-				// ローディングアニメーション
-				gsap.to(".js-type", {
-					duration: 0.5,
-					delay: 0,
-					opacity: 0,
-					ease: "expo.inOut",
-				});
-				gsap.to(".first", {
-					duration: 1.5,
-					delay: 0,
-					top: "-100%",
-					ease: "expo.inOut",
-				});
-				gsap.to(".second", {
-					duration: 1.5,
-					delay: 0.2,
-					top: "-100%",
-					ease: "expo.inOut",
-				});
-				gsap.to(".third", {
-					duration: 1.5,
-					delay: 0.4,
-					top: "-100%",
-					ease: "expo.inOut",
-				});
-				gsap.to(".js-loader", {
-					duration: 1.5,
-					delay: 0.4,
-					zIndex: -1,
-				});
-			}
-		})();
-
-	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/ie-buster@1.1.0/dist/ie-buster.min.js"></script>
