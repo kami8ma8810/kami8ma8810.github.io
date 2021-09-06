@@ -61,9 +61,9 @@
     </section>
     <section class="text-wrap">
       <h2>公式サイトのデモ（JavaScriptに書いたテキストを表示）</h2>
-      <p class="demo1">ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる</p>
-      <p class="demo1">ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる</p>
-      <p class="demo1">ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる</p>
+      <p class="demo1"></p>
+      <p class="demo1"></p>
+      <p class="demo1"></p>
 
 
       <h2>公式サイトのデモ（HTMLに書いたテキストを表示 hidden属性を使用）</h2>
@@ -77,12 +77,27 @@
       <h2>スクロールするとシャッフルしながら表示されます。</h2>
       <p class="text">
         <span class="text__inner js-shuffleText"
-          >「大好きです。今度は嘘じゃないっす」</span
+          >人間！つまずくのは恥ずかしいことじゃない！立ち上がらない事が…恥ずかしいんだぞ！</span
         >
       </p>
       <p class="text">
         <span class="text__inner js-shuffleText"
-          >「あきらめらそこで試合終了だよ」</span
+          >すべて人のせいにする！その考え方がいかん！だからいつまでも成長しない</span
+        >
+      </p>
+      <p class="text">
+        <span class="text__inner js-shuffleText"
+          >人生は人生ゲームだ！何がおこるかわからんから面白い！</span
+        >
+      </p>
+      <p class="text">
+        <span class="text__inner js-shuffleText"
+          >技術を悪用すれば犯罪になるし正しく使えば感謝されるのだ</span
+        >
+      </p>
+      <p class="text">
+        <span class="text__inner js-shuffleText"
+          >はずかしいだのてれるなんてのは自意識過剰で自己顕示が強いんですよ！自分をよく見せようと思っちゃダメ！！</span
         >
       </p>
     </section>
@@ -90,8 +105,10 @@
     <script src="./js/shuffle-letters.js"></script>
     <script>
       ('use strict');
-      let textTarget = document.querySelectorAll('.demo1');
-			shuffleLetters(textTarget);
+      const textTarget = document.querySelectorAll('.demo1');
+			shuffleLetters(textTarget,{
+				text:'ShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふるShuffleシャッフルしゃっふる'
+			});
 
       let textTargetHidden = document.querySelectorAll('.demo2');
       for (let i = 0; i < textTargetHidden.length; i++) {
@@ -115,12 +132,18 @@
               return;
             }
             // 監視範囲と交差したときの処理
-            const targetText = entry.target.textContent;
+            // const targetText = entry.target.textContent;
             shuffleLetters(entry.target, {
-              text: targetText,
+              // text: targetText,
               step: 10,
               fps: 60,
             });
+            // const targetText = entry.target.textContent;
+            // shuffleLetters(entry.target, {
+            //   text: targetText,
+            //   step: 10,
+            //   fps: 60,
+            // });
             entry.target.classList.add('is-show');
             //一度処理したら監視をやめる
             observerStop.unobserve(entry.target);
