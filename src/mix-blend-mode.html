@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mix-blend-modeをheaderで使う</title>
+    <link rel="stylesheet" href="../dist/css/mix-blend-mode.css" />
+  </head>
+  <body>
+		<div class="sticky">
+		    <header class="header">
+		      <a class="header-title" href="/"
+		        ><img
+		          src="../dist/img/logo-blend.svg"
+		          alt="MIX BLEND Inc."
+		          width="500"
+		          height="auto"
+		      /></a>
+		      <span class="hamburger"></span>
+		    </header>
+		    <main class="main">
+		      <section class="content">
+		        <h1 class="title">mix-blend-modeは、いいぞ。</h1>
+		        <p class="text">
+		          CSS
+		          のmix-blend-modeプロパティは、要素の内容物と親要素の内容物や要素の背景をどのように混合するかを設定します。
+		        </p>
+		        <div class="img-wrap">
+							<img
+								src="../dist/img/fd400112.jpg"
+								alt=""
+								width="1000"
+								height="auto"
+							/>
+		        </div>
+		        <div class="img-wrap">
+							<img
+								src="../dist/img/fd400555.jpg"
+								alt=""
+								width="1000"
+								height="auto"
+							/>
+		        </div>
+		        <div class="img-wrap">
+							<img
+								src="../dist/img/fd401322.jpg"
+								alt=""
+								width="1000"
+								height="auto"
+							/>
+		        </div>
+		      </section>
+		      <section class="content">
+		        <h1 class="title">headerにmix-blend-modeを使うときの注意点</h1>
+		        <p class="text">
+		          header（固定）に使用する場合は、header自体にbackground-color:transparent、headerの子要素にcolorまたはbackground-colorを指定する必要があります。
+		        </p>
+		      </section>
+		    </main>
+		</div>
+  </body>
+</html>
