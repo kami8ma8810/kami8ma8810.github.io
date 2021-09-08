@@ -19,16 +19,16 @@ var Util = {
     }
 
     return false;
-  },
-  getParam: function getParam(name) {
-    url = window.location.href;
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  }
+  } // getParam: function (name) {
+  //   url = window.location.href;
+  //   name = name.replace(/[\[\]]/g, '\\$&');
+  //   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+  //     results = regex.exec(url);
+  //   if (!results) return null;
+  //   if (!results[2]) return '';
+  //   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  // },
+
 };
 
 var MomentumScroll = /*#__PURE__*/function () {
@@ -37,8 +37,9 @@ var MomentumScroll = /*#__PURE__*/function () {
 
     this.container = document.querySelector(selector);
     this.scrollY = 0;
-    this.translateY = 0;
-    this.speed = 0.2;
+    this.translateY = 0; // this.speed = 0.2;//default
+
+    this.speed = 0.15;
     this.rafId = null;
     this.isActive = false;
     this.scrollHandler = this.scroll.bind(this);

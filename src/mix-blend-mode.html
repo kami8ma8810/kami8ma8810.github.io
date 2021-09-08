@@ -4,12 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mix-blend-modeをheaderで使う</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
+    <title>mix-blend-mode on header</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../dist/css/mix-blend-mode.css" />
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+      defer
+    ></script>
   </head>
   <body>
     <header class="header">
@@ -24,11 +32,7 @@
     </header>
     <main id="container" class="main">
       <section class="content">
-        <h1 class="title">mix-blend-modeは、<br>いいぞ。</h1>
-        <!-- <p class="text">
-          CSS
-          のmix-blend-modeプロパティは、要素の内容物と親要素の内容物や要素の背景をどのように混合するかを設定します。
-        </p> -->
+        <h1 class="title">mix-blend-modeは、<br />いいぞ。</h1>
         <div class="img-wrap">
           <img
             src="../dist/img/img-blend1.jpg"
@@ -53,15 +57,10 @@
             height="auto"
           />
         </div>
-
       </section>
       <section class="content">
-        <!-- <h1 class="title">headerにmix-blend-modeを使うときの注意点</h1> -->
-        <h1 class="title">重なる、<br>文字と画像。</h1>
-        <!-- <p class="text">
-          header（固定）に使用する場合は、header自体にbackground-color:transparent、headerの子要素にcolorまたはbackground-colorを指定する必要があります。
-        </p> -->
-				<div class="img-wrap">
+        <h1 class="title">重なる、<br />文字と画像。</h1>
+        <div class="img-wrap">
           <img
             src="../dist/img/img-blend4.jpg"
             alt=""
@@ -86,11 +85,13 @@
           />
         </div>
       </section>
-			<section class="content">
-				<div class="gradient"></div>
-			</section>
-			<p class="thank"><span>ご視聴、ありがとやんした。</span></p>
+      <section class="content">
+        <div class="gradient"></div>
+      </section>
+      <section class="thank">
+        <p>ご視聴、ありがとやんした。</p>
+      </section>
     </main>
-<script src="../dist/js/pureSmoothScroll.min.js"></script>
+    <script src="../dist/js/pureSmoothScroll.min.js"></script>
   </body>
 </html>

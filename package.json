@@ -55,10 +55,11 @@
     "fsevents": "^2.1.3"
   },
   "browserslist": [
-    "last 3 version",
+    "last 2 version",
     "IE >= 11",
     "Firefox ESR",
-    "> 1% in JP"
+    "> 1% in JP",
+		"not dead"
   ],
   "dependencies": {
     "jquery": "^3.6.0"
