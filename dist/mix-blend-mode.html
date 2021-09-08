@@ -5,37 +5,190 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>mix-blend-modeをheaderで使う</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../dist/css/mix-blend-mode.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="sticky">
 <header class="header">
-<a class="header-title" href="/"><img src="../dist/img/logo-blend.svg" alt="MIX BLEND Inc." width="500" height="auto"></a>
+<a class="header-title" href="/"><img src="../dist/img/logo-header.svg" alt="MIX BLEND Inc." width="500" height="auto"></a>
 <span class="hamburger"></span>
 </header>
-<main class="main">
+<main id="container" class="main">
 <section class="content">
-<h1 class="title">mix-blend-modeは、いいぞ。</h1>
-<p class="text">
-CSS のmix-blend-modeプロパティは、要素の内容物と親要素の内容物や要素の背景をどのように混合するかを設定します。
-</p>
+<h1 class="title">mix-blend-modeは、<br>いいぞ。</h1>
 <div class="img-wrap">
-<img src="../dist/img/fd400112.jpg" alt="" width="1000" height="auto">
+<img src="../dist/img/img-blend1.jpg" alt="" width="1000" height="auto">
 </div>
 <div class="img-wrap">
-<img src="../dist/img/fd400555.jpg" alt="" width="1000" height="auto">
+<img src="../dist/img/img-blend2.jpg" alt="" width="1000" height="auto">
 </div>
 <div class="img-wrap">
-<img src="../dist/img/fd401322.jpg" alt="" width="1000" height="auto">
+<img src="../dist/img/img-blend3.jpg" alt="" width="1000" height="auto">
 </div>
 </section>
 <section class="content">
-<h1 class="title">headerにmix-blend-modeを使うときの注意点</h1>
-<p class="text">
-header（固定）に使用する場合は、header自体にbackground-color:transparent、headerの子要素にcolorまたはbackground-colorを指定する必要があります。
-</p>
+<h1 class="title">重なる、<br>文字と画像。</h1>
+<div class="img-wrap">
+<img src="../dist/img/img-blend4.jpg" alt="" width="1000" height="auto">
+</div>
+<div class="img-wrap">
+<img src="../dist/img/img-blend5.jpg" alt="" width="1000" height="auto">
+</div>
+<div class="img-wrap">
+<img src="../dist/img/img-blend6.jpg" alt="" width="1000" height="auto">
+</div>
 </section>
+<section class="content">
+<div class="gradient"></div>
+</section>
+<p class="thank"><span>ご視聴、ありがとやんした。</span></p>
 </main>
-</div>
+<script>
+var Util = {
+  isSmartPhone: function () {
+    var ut = navigator.userAgent;
+    if (
+      ut.indexOf('iPhone') > 0 ||
+      ut.indexOf('iPod') > 0 ||
+      (ut.indexOf('Android') > 0 && ut.indexOf('Mobile') > 0)
+    ) {
+      //"SmartPhon";
+      return true;
+    } else if (ut.indexOf('iPad') > 0 || ut.indexOf('Android') > 0) {
+      //"Tablet";
+      return true;
+    }
+    return false;
+  },
+  getParam: function (name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  },
+};
+
+class MomentumScroll {
+  constructor(selector) {
+    this.container = document.querySelector(selector);
+    this.scrollY = 0;
+    this.translateY = 0;
+    this.speed = 0.2;
+    this.rafId = null;
+    this.isActive = false;
+
+    this.scrollHandler = this.scroll.bind(this);
+    this.resizeHandler = this.resize.bind(this);
+
+    this.run();
+  }
+
+  run() {
+    if (this.isActive) {
+      return;
+    }
+
+    this.isActive = true;
+
+    this.on();
+    this.setStyles();
+  }
+
+  destroy() {
+    if (!this.isActive) {
+      return;
+    }
+
+    this.isActive = false;
+
+    this.off();
+    this.clearStyles();
+
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
+
+    this.rafId = null;
+  }
+
+  resize() {
+    document.body.style.height = `${this.container.clientHeight}px`;
+  }
+
+  scroll() {
+    this.scrollY = window.scrollY || window.pageYOffset;
+
+    if (!this.rafId) {
+      this.container.style.willChange = 'transform';
+      this.rafId = requestAnimationFrame(() => this.render());
+    }
+  }
+
+  on() {
+    this.resize();
+    this.scroll();
+    window.addEventListener('scroll', this.scrollHandler, {
+      passive: true,
+    });
+    window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener('load', this.resizeHandler);
+  }
+
+  off() {
+    window.removeEventListener('scroll', this.scrollHandler);
+    window.removeEventListener('resize', this.resizeHandler);
+    window.removeEventListener('load', this.resizeHandler);
+  }
+
+  setStyles() {
+    this.container.style.position = 'fixed';
+    this.container.style.width = '100%';
+    this.container.style.top = 0;
+    this.container.style.left = 0;
+  }
+
+  clearStyles() {
+    document.body.style.height = '';
+    this.container.style.position = '';
+    this.container.style.width = '';
+    this.container.style.top = '';
+    this.container.style.left = '';
+    this.container.style.transform = '';
+    this.container.style.willChange = '';
+  }
+
+  render() {
+    const nextY =
+      this.translateY + (this.scrollY - this.translateY) * this.speed;
+    $('section').css({
+      transform: 'skewY(' + (this.scrollY - this.translateY) / 480 + 'deg)',
+    });
+
+    const isNear = Math.abs(this.scrollY - nextY) <= 0.1;
+    this.translateY = isNear ? this.scrollY : nextY;
+    const roundedY = Math.round(this.translateY * 100) / 100;
+    this.container.style.transform = `translate3d(0, -${roundedY}px, 0)`;
+    if (isNear) {
+      this.rafId = null;
+      this.container.style.willChange = '';
+    } else {
+      this.rafId = requestAnimationFrame(() => this.render());
+    }
+  }
+}
+let momentumScroll;
+if(!Util.isSmartPhone()){
+	document.addEventListener('DOMContentLoaded', () => {
+		momentumScroll = new MomentumScroll('#container');
+			setInterval(momentumScroll.resize, 1000);
+	});
+}
+</script>
 </body>
 </html>
