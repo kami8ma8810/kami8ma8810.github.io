@@ -162,7 +162,7 @@ var momentumScroll;
 
 if (!Util.isSmartPhone()) {
   document.addEventListener('DOMContentLoaded', function () {
-    momentumScroll = new MomentumScroll('#container');
+    momentumScroll = new MomentumScroll('#js-momentumScroll');
     setInterval(momentumScroll.resize, 1000);
   });
 }

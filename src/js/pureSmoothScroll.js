@@ -137,7 +137,7 @@ class MomentumScroll {
 let momentumScroll;
 if (!Util.isSmartPhone()) {
   document.addEventListener('DOMContentLoaded', () => {
-    momentumScroll = new MomentumScroll('#container');
+    momentumScroll = new MomentumScroll('#js-momentumScroll');
     setInterval(momentumScroll.resize, 1000);
   });
 }
