@@ -1,0 +1,20 @@
+<% const page='person/story2'; %>
+<!DOCTYPE html>
+<html lang="ja">
+  <%- include('../components/_head.ejs',{meta:data.pageMeta[page]}); %>
+  <body id="js-anchor" >
+    <div id="loading">
+      <div id="loading-main"></div>
+    </div>
+    <div
+      class="js-loadingWrapper smooth-scroll-container"
+      data-scroll-container
+    >
+      <%- include('../components/_header.ejs',{meta:data.pageMeta[page]}); %>
+      <%- include('./_story2.ejs',{meta:data.pageMeta[page]}); %> <%-
+      include('../components/_footer.ejs',{meta:data.pageMeta[page]}); %>
+    </div>
+		<script src="../assets/js/polyfill-intersection-observer.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,40 +1,62 @@
+const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
-	// モード値を production に設定すると最適化された状態で、development に設定するとソースマップ有効でJSファイルが出力される
-	mode: "production",
-	// mode: "development",
-
-	// watchモード有効
-	watch: true,
- devServer: {
-    contentBase: "dist",
-    open: true // 自動的にブラウザが立ち上がる
+  mode: 'production',
+  // mode: 'development',
+  entry: './src/js/index.js',
+  output: {
+    path: path.resolve(__dirname, './public/assets/js'),
+    filename: 'main.js',
   },
-
-	// メインとなるJSファイル（エントリーポイント）
-	entry: "./src/js/main.js",
-
-	//出力するJSファイル
-	output: {
-		filename: "main.js"
-	},
-
-	module: {
-		rules: [{
-			// 拡張子 .js の場合
-			test: /\.js$/,
-			use: [{
-				// Babel を利用する
-				loader: "babel-loader",
-				// Babel のオプションを指定する
-				options: {
-					presets: [
-						// プリセットを指定することで、ES2020をES5に変換
-						"@babel/preset-env",
-					],
-				},
-			}, ],
-		}, ],
-	},
-	// ES5(IE11等)向けの指定
-	target: ["web", "es5"],
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     minSize: 0, //defaultは30000
+  //     cacheGroups: {
+  //       vendor: {
+  //         //vendorは任意名
+  //         test: /node_modules/,
+  //         name: 'vendor',
+  //       },
+  //       vendorsModules: {
+  //         //vendorModulesは任意名
+  //         test: /src[\\/]js[\\/]modules/,
+  //         name: 'vendor-modules',
+  //       },
+  //       default: false,
+  //     },
+  //   },
+  // },
+  module: {
+    rules: [
+      //追加
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            // options: {
+            //   presets: ['@babel/preset-env'],
+            // },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    // 複数のJSファイルでインポートしているjQueryをまとめる
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+    }),
+    new webpack.ProvidePlugin({
+      gsap: 'gsap',
+      ScrollTrigger: 'gsap/ScrollTrigger',
+    }),
+  ],
+  performance: {
+    maxAssetSize: 100000,
+  },
 };

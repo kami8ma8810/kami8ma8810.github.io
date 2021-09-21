@@ -1,0 +1,82 @@
+<% const page='index'; %>
+<!DOCTYPE html>
+<html lang="ja">
+  <%- include('./components/_head.ejs',{meta:data.pageMeta[page]}); %>
+  <body id="js-anchor">
+    <div id="loading">
+      <div id="loading-main"></div>
+    </div>
+    <div
+      class="js-loadingWrapper smooth-scroll-container"
+      data-scroll-container
+    >
+      <%- include('./components/_test-header.ejs',{meta:data.pageMeta[page]}); %> <%-
+      include('./top/_topKv.ejs',{meta:data.pageMeta[page]}); %> <%-
+      include('./top/_test.ejs',{meta:data.pageMeta[page]}); %> <%-
+      include('./components/_footer.ejs',{meta:data.pageMeta[page]}); %>
+    </div>
+		<script src="./assets/js/polyfill-intersection-observer.js"></script>
+    <script src="./assets/js/rellax.min.js"></script>
+    <script>
+      var rellax = new Rellax('.rellax-target');
+    </script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/platform.js"></script>
+    <script>
+      // PC safari用分岐スクリプト
+      let ua = window.navigator.userAgent.toLowerCase();
+      if (
+        // もしsafariの場合
+        ua.indexOf('safari') !== -1 &&
+        ua.indexOf('chrome') === -1 &&
+        ua.indexOf('edge') === -1
+      ) {
+        if (
+					// もしスマホ・タブレット以外の場合
+          !(
+            ua.indexOf('iPhone') > 0 ||
+            (ua.indexOf('iPhone') != -1 && ua.indexOf('macintosh') != -1) ||
+            (ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) ||
+            ua.indexOf('iPad') > 0 ||
+            ua.indexOf('Android') > 0 ||
+            (ua.indexOf('iPad') != -1 && ua.indexOf('macintosh') != -1)
+          )
+        ) {
+					let safariVer = platform.version;
+					// もしsafariのバージョンが14より小さい場合
+					if(safariVer < '14'){
+						window.addEventListener('DOMContentLoaded', function () {
+            // htmlタグにクラス付け
+            let htmlElm = document.documentElement;
+            htmlElm.className += ' safariPC';
+            // TOPページのアニメーションオフ
+            const removeElm = document.getElementById('js-topKv');
+            const headerElm = document.querySelector('.header-container');
+            const topicsElm = document.querySelector('.js-textScramble');
+            const topicsItems = document.querySelectorAll('.js-srOnly');
+            const topTitles = document.querySelectorAll('.kv-title__text');
+            topTitles.forEach((topTitle) => {
+              topTitle.classList.add('is-show');
+            });
+            removeElm.classList.add('is-hidden');
+            headerElm.classList.remove('js-topPageHeader');
+            topicsElm.remove();
+            topicsItems.forEach((topicsItem) => {
+              topicsItem.classList.remove('js-srOnly');
+            });
+          });
+					}
+					// else{
+					// 	console.log('safariのバージョン14.0以上で閲覧しています');
+					// }
+        }
+      }
+    </script>
+    <script>
+      'use strict';
+      setTimeout(function () {
+        document.getElementById('loading').remove();
+      }, 1000);
+    </script>
+  </body>
+</html>

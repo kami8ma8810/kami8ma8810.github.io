@@ -1,0 +1,1 @@
+"use strict";var setViewHeight=function(){var e=.01*window.innerHeight;document.documentElement.style.setProperty("--vh","".concat(e,"px"))};window.addEventListener("resize",setViewHeight),setViewHeight(),$(function(){$(".header-nav a").each(function(){this.href==location.href&&$(this).parents("li").addClass("is-current")})});

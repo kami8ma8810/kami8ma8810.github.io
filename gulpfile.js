@@ -1,246 +1,284 @@
-//gulp.〇〇の処理は全部定数でまとめる
-const {
-	src,
-	dest,
-	watch,
-	lastRun,
-	series,
-	parallel
-} = require("gulp");
+const { src, dest, watch, lastRun, series, parallel } = require('gulp');
 
-// ファイルの削除
-const del = require("del");
+const fs = require('fs');
 
 // html
-const htmlMin = require("gulp-htmlmin");
+const htmlMin = require('gulp-htmlmin');
+const prettify = require('gulp-prettify');
+const ejs = require('gulp-ejs');
+const rename = require('gulp-rename');
+const replace = require('gulp-replace'); //余計なテキストを削除
 
 // Sass
-const sass = require("gulp-sass");
-const sassGlob = require("gulp-sass-glob");
-const notify = require("gulp-notify");
-const plumber = require("gulp-plumber");
-const postCss = require("gulp-postcss");
-const autoprefixer = require("autoprefixer");
-const cssDeclSort = require("css-declaration-sorter");
-const gcmq = require("gulp-group-css-media-queries");
-const cleanCss = require("gulp-clean-css");
-const rename = require("gulp-rename");
-const fibers = require("fibers");
+const sass = require('gulp-dart-sass');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
+const postCss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const gcmq = require('gulp-group-css-media-queries');
+const cssNano = require('gulp-cssnano');
 
 // JavaScript
-const babel = require("gulp-babel");
-const uglify = require("gulp-uglify");
-const webpack = require("webpack");
-const webpackStream = require("webpack-stream"); //gulpでwebpackを使うためのプラグイン
-const webpackConfig = require("./webpack.config");
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
+// webpack
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const webpackStream = require('webpack-stream'); // gulpでwebpackを使うために必要なプラグイン
 
 // 画像圧縮
-const imagemin = require("gulp-imagemin");
-const imageminMozjpeg = require("imagemin-mozjpeg");
-const imageminPngquant = require("imagemin-pngquant");
-const imageminSvgo = require("imagemin-svgo");
+const imageMin = require('gulp-imagemin');
+const pngQuant = require('imagemin-pngquant');
+const mozJpeg = require('imagemin-mozjpeg');
+const svgo = require('gulp-svgo');
 
 // ブラウザ同期
-const browserSync = require("browser-sync").create();
-
-//本番(production)と開発(development)で処理を分ける
-// const mode = require("gulp-mode")({
-//   modes: ["production", "development"],
-//   default: "development",
-//   verbose: false
-// });
+const browserSync = require('browser-sync').create();
 
 //パス設定
 const paths = {
-	html: {
-		src: "./src/*.html",
-		dist: "./dist/",
-	},
-	styles: {
-		src: "./src/scss/**/*.scss",
-		dist: "./dist/css/",
-		map: "./map",
-	},
-	scripts: {
-		src: "./src/js/**/*.js",
-		dist: "./dist/js/",
-		map: "./js/map",
-		core: "src/js/core/**/*.js",
-		app: "src/js/app/**/*.js",
-	},
-	images: {
-		src: "./src/img/**/*.{jpg,jpeg,png,gif,svg}",
-		dist: "./dist/img/",
-	},
+  html: {
+    src: ['./src/ejs/**/*.ejs', '!' + './src/ejs/**/_*.ejs'],
+    dist: './public/',
+    watch: './src/ejs/**/*.ejs',
+  },
+  styles: {
+    src: './src/scss/**/*.scss',
+    dist: './public/assets/css/',
+    map: './map',
+  },
+  scripts: {
+    src: './src/js/**/*.js',
+    dist: './public/assets/js/',
+  },
+  images: {
+    src: './src/images/**/*.{jpg,jpeg,png,gif,svg}',
+    dist: './public/assets/images/',
+  },
+  clean: {
+    all: './public/',
+    assets: ['./public/assets/css/', './public/assets/js/'],
+    images: './public/assets/images/',
+  },
 };
 
-// htmlフォーマット
-const htmlFormat = () => {
-	return src(paths.html.src)
-		.pipe(
-			plumber({
-				errorHandler: notify.onError("Error: <%= error.message %>"),
-			})
-		)
-		.pipe(
-			htmlMin({
-				removeComments: true, //コメントを削除
-				collapseWhitespace: true, //余白を詰める
-				preserveLineBreaks: true, //タグ間の改行を詰める
-			})
-		)
-		.pipe(dest(paths.html.dist));
+// ejsコンパイル
+const htmlFunc = () => {
+  const data = JSON.parse(fs.readFileSync('./src/ejs/data.json'));
+  return src(paths.html.src)
+    .pipe(
+      plumber({
+        errorHandler: notify.onError('Error: <%= error.message %>'),
+      })
+    )
+    .pipe(ejs(data)) //ejsをまとめる
+    .pipe(
+      rename({
+        extname: '.html',
+      })
+    ) //拡張子をhtmlに
+    .pipe(
+      htmlMin({
+        removeComments: true, //コメントを削除
+        collapseWhitespace: true, //余白を詰める
+        collapseInlineTagWhitespace: true, //inline要素のスペース削除（spanタグ同士の改行などを詰める
+        preserveLineBreaks: true, //タグ間の余白を詰める
+      })
+    )
+    .pipe(
+      prettify({
+        indent_size: 2,
+        indent_with_tabs: true,
+      })
+    )
+    .pipe(replace(/[\s\S]*?(<!DOCTYPE)/, '$1'))
+    .pipe(dest(paths.html.dist))
+    .pipe(browserSync.stream());
 };
 
 // Sassコンパイル
-sass.compiler = require("sass");
-const compileSass = () => {
-	return src(paths.styles.src, {
-			sourcemaps: true,
-		})
-		.pipe(
-			plumber({
-				errorHandler: notify.onError("Error: <%= error.message %>"),
-			})
-		)
-		.pipe(sassGlob())
-		.pipe(
-			sass({
-				fiber: fibers,
-				outputStyle: "expanded",
-			}).on("error", sass.logError)
-		)
-		.pipe(
-			postCss([
-				autoprefixer({
-					cascade: false,
-					grid: "autoplace", // IE11のgrid対応('-ms-')
-				}),
-				// cssDeclSort({
-				// 	order: "smacss",
-				// }),
-			])
-		)
-		.pipe(gcmq())
-		.pipe(dest(paths.styles.dist))
-		.pipe(cleanCss())
-		// .pipe(
-		// 	rename({
-		// 		extname: ".min.css",
-		// 	})
-		// )
-		// .pipe(
-		// 	dest(paths.styles.dist, {
-		// 		sourcemaps: "./map",
-		// 	})
-		// )
-		.pipe(browserSync.stream());
+const sassCompile = () => {
+  return (
+    src(paths.styles.src, {
+      sourcemaps: true,
+    })
+      .pipe(
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>'),
+        })
+      )
+      .pipe(
+        sass({
+          // outputStyle: 'expanded',
+          outputStyle: 'compressed',
+        }).on('error', sass.logError)
+      )
+      .pipe(
+        postCss([
+          autoprefixer({
+            // プロパティのインデントを整形しない
+            cascade: false,
+            // IE11のgrid対応
+            grid: 'autoplace',
+          }),
+        ])
+      )
+      //メディアクエリをまとめる
+      .pipe(gcmq())
+      .pipe(cssNano())
+      .pipe(
+        dest(paths.styles.dist, {
+          sourcemaps: './map',
+        })
+      )
+      .pipe(browserSync.stream())
+  );
 };
 
 // JavaScriptコンパイル
 const jsBabel = () => {
-	return src(paths.scripts.src)
-		.pipe(
-			plumber({
-				errorHandler: notify.onError("Error: <%= error.message %>"),
-			})
-		)
-		.pipe(
-			babel({
-				presets: ["@babel/preset-env"],
-			})
-		)
-		.pipe(dest(paths.scripts.dist))
-		.pipe(uglify())
-		.pipe(
-			rename({
-				extname: ".min.js",
-			})
-		)
-		.pipe(dest(paths.scripts.dist));
+  return (
+    src(paths.scripts.src)
+      .pipe(
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>'),
+        })
+      )
+      .pipe(
+        // Babel変換
+        babel({
+          presets: ['@babel/preset-env'],
+        })
+      )
+      .pipe(dest(paths.scripts.dist))
+      // JS圧縮
+      .pipe(uglify())
+      .pipe(dest(paths.scripts.dist))
+  );
+};
+
+// webpack
+const bundleJs = (done) => {
+  //webpackStreamの第2引数にwebpackを渡す
+  webpackStream(webpackConfig, webpack).pipe(dest(paths.scripts.dist));
+  done();
 };
 
 // 画像圧縮
-const imagesFunc = () => {
-	return src(paths.images.src, {
-			since: lastRun(imagesFunc),
-		})
-		.pipe(
-			plumber({
-				errorHandler: notify.onError("Error: <%= error.message %>"),
-			})
-		)
-		.pipe(
-			imagemin(
-				[
-					imageminMozjpeg({
-						quality: 80,
-					}),
-					imageminPngquant(
-						[0.7, 0.8] //画質の最小,最大
-					),
-					imageminSvgo({
-						plugins: [{
-								removeViewbox: false, //フォトショやイラレで書きだされるviewboxを消さない
-							},
-							{
-								removeMetadata: false,
-							},
-							{
-								removeUnknownsAndDefaults: false,
-							},
-							{
-								convertShapeToPath: false,
-							},
-							{
-								collapseGroups: false,
-							},
-							{
-								cleanupIDs: false,
-							},
-						],
-					}),
-				], {
-					verbose: true, //メタ情報削除
-				}
-			)
-		)
-		.pipe(dest(paths.images.dist));
+const imagesCompress = () => {
+  return src(paths.images.src, {
+    since: lastRun(imagesCompress),
+  })
+    .pipe(
+      plumber({
+        errorHandler: notify.onError('Error: <%= error.message %>'),
+      })
+    )
+    .pipe(
+      imageMin(
+        [
+          mozJpeg({
+            quality: 80,
+          }),
+          pngQuant(
+            [0.6, 0.8] //画質の最小,最大
+          ),
+        ],
+        {
+          verbose: true, //メタ情報削除
+        }
+      )
+    )
+    .pipe(
+      svgo({
+        plugins: [
+          {
+            removeViewbox: false, //フォトショやイラレで書きだされるviewboxを消さない
+          },
+          {
+            removeMetadata: false,
+          },
+          {
+            convertColors: false,
+          },
+          {
+            removeUnknownsAndDefaults: false,
+          },
+          {
+            convertShapeToPath: false,
+          },
+          {
+            cleanupNumericValues: false,
+          },
+          {
+            collapseGroups: false,
+          },
+          {
+            cleanupIDs: false,
+          },
+          {
+            mergePaths: false,
+          },
+        ],
+      })
+    )
+    .pipe(dest(paths.images.dist));
 };
 
 // ローカルサーバー起動
-const browserSyncFunc = () => {
-	browserSync.init({
-		notify: false, //connectedのメッセージ非表示
-		server: {
-			baseDir: "./",
-		},
-		startPath: "./dist/index.html",
-		reloadOnRestart: true,
-	});
+const browserSyncFunc = (done) => {
+  browserSync.init({
+    //デフォルトのconnectedのメッセージ非表示
+    notify: false,
+    server: {
+      baseDir: './',
+    },
+    startPath: './public/index.html',
+    reloadOnRestart: true,
+  });
+  done();
 };
 
 // ブラウザ自動リロード
 const browserReloadFunc = (done) => {
-	browserSync.reload();
-	done();
+  browserSync.reload();
+  done();
 };
+
+// ファイル削除
+const clean = require('gulp-clean');
+function cleanAll(done) {
+  src(paths.clean.all, { read: false }).pipe(clean());
+  done();
+}
+function cleanCssJs(done) {
+  src(paths.clean.assets, { read: false }).pipe(clean());
+  done();
+}
+function cleanImages(done) {
+  src(paths.clean.images, { read: false }).pipe(clean());
+  done();
+}
 
 // ファイル監視
 const watchFiles = () => {
-	watch(paths.html.src, series(htmlFormat, browserReloadFunc));
-	watch(paths.styles.src, series(compileSass));
-	watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
-	// watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
-	// watch(paths.scripts.src, bundleJs);
-	watch(paths.images.src, series(imagesFunc, browserReloadFunc));
-};
-
-// マップファイル除去
-const cleanMap = () => {
-	return del([paths.styles.map, paths.scripts.map]);
+  watch(paths.html.watch, series(htmlFunc, browserReloadFunc));
+  watch(paths.styles.src, series(sassCompile));
+  watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
+  watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
+  watch(paths.images.src, series(imagesCompress, browserReloadFunc));
 };
 
 // npx gulp実行処理
-exports.default = parallel(watchFiles, browserSyncFunc);
-exports.cleanmap = cleanMap;
+exports.default = series(
+  parallel(htmlFunc, sassCompile, jsBabel, bundleJs),
+  parallel(watchFiles, browserSyncFunc)
+);
+
+// ファイル削除
+exports.cleanAll = series(cleanAll);
+exports.cleanCssJs = series(cleanCssJs);
+exports.cleanImages = series(cleanImages);
+
+// バンドルのみ
+exports.bundle = series(bundleJs);

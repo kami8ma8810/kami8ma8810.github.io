@@ -1,0 +1,1 @@
+"use strict";function test1(){console.log("テスト１")}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=test1;

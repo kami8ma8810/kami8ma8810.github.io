@@ -1,29 +1,20 @@
 'use strict';
-let Util = {
+let userDevice = {
   isSmartPhone: function () {
-    let ut = navigator.userAgent;
+    let ua = navigator.userAgent;
     if (
-      ut.indexOf('iPhone') > 0 ||
-      ut.indexOf('iPod') > 0 ||
-      (ut.indexOf('Android') > 0 && ut.indexOf('Mobile') > 0)
+      ua.indexOf('iPhone') > 0 ||
+      ua.indexOf('iPod') > 0 ||
+      (ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0)
     ) {
       //"SmartPhon";
       return true;
-    } else if (ut.indexOf('iPad') > 0 || ut.indexOf('Android') > 0) {
+    } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
       //"Tablet";
       return true;
     }
     return false;
   },
-  // getParam: function (name) {
-  //   url = window.location.href;
-  //   name = name.replace(/[\[\]]/g, '\\$&');
-  //   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-  //     results = regex.exec(url);
-  //   if (!results) return null;
-  //   if (!results[2]) return '';
-  //   return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  // },
 };
 
 class MomentumScroll {
@@ -31,14 +22,11 @@ class MomentumScroll {
     this.container = document.querySelector(selector);
     this.scrollY = 0;
     this.translateY = 0;
-    // this.speed = 0.2;//default
-    this.speed = 0.15;
+    this.speed = 0.2;
     this.rafId = null;
     this.isActive = false;
-
     this.scrollHandler = this.scroll.bind(this);
     this.resizeHandler = this.resize.bind(this);
-
     this.run();
   }
 
@@ -119,8 +107,13 @@ class MomentumScroll {
   render() {
     const nextY =
       this.translateY + (this.scrollY - this.translateY) * this.speed;
-    $('section').css({
-      transform: 'skewY(' + (this.scrollY - this.translateY) / 480 + 'deg)',
+    // $('section').css({
+    //   transform: 'skewY(' + (this.scrollY - this.translateY) / 480 + 'deg)',
+    // });
+    const containerChildren = document.querySelectorAll('.js-containerChild');
+    containerChildren.forEach((containerChild) => {
+      containerChild.style.transform =
+        'skewY(' + (this.scrollY - this.translateY) / 480 + 'deg)';
     });
 
     const isNear = Math.abs(this.scrollY - nextY) <= 0.1;
@@ -136,7 +129,7 @@ class MomentumScroll {
   }
 }
 let momentumScroll;
-if (!Util.isSmartPhone()) {
+if (!userDevice.isSmartPhone()) {
   document.addEventListener('DOMContentLoaded', () => {
     momentumScroll = new MomentumScroll('#container');
     setInterval(momentumScroll.resize, 1000);
