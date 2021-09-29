@@ -254,14 +254,14 @@ const imagesCompress = () => {
 // };
 function convertWebp() {
   return src(paths.images.src)
-    .pipe(
-      rename(function (defaultImageName) {
-        //元の画像の名前（拡張子付き）に.webpを付与する。拡張子が違う同じ名前の画像（bg.jpg,bg.png）が存在したときにまとめられてしまうのを防ぐため。
-        defaultImageName.basename += defaultImageName.extname;
-      })
-    )
+    // .pipe(
+    //   rename(function (defaultImageName) {
+    //     //元の画像の名前（拡張子付き）に.webpを付与する。拡張子が違う同じ名前の画像（bg.jpg,bg.png）が存在したときにまとめられてしまうのを防ぐため。
+    //     defaultImageName.basename += defaultImageName.extname;
+    //   })
+    // )
     .pipe(webp())
-    .pipe(dest(paths.images.dist));
+    .pipe(dest(paths.images.distWebp));
 }
 
 exports.convertWebp = series(convertWebp);
