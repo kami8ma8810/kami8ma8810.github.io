@@ -56,6 +56,7 @@ const paths = {
   },
   images: {
     src: "./src/images/**/*.{jpg,jpeg,png,gif,svg}",
+    srcWebp: "./src/images/**/*.{jpg,jpeg,png}",
     dist: "./public/assets/images/",
     distWebp: "./public/assets/images/webp/",
   },
@@ -236,38 +237,20 @@ const imagesCompress = () => {
 };
 
 // webp変換
-// const webpConvert = () => {
-//   return src(paths.images.src, {
-//     since: lastRun(webpConvert),
-//   })
-//     .pipe(
-//       plumber({
-//         errorHandler: notify.onError("Error: <%= error.message %>"),
-//       })
-//     )
-//     .pipe(
-//       rename({
-//         extname:".webp"
-//       })
-//     )
-//     .pipe(dest(paths.images.distWebp));
-// };
-function convertWebp() {
-  return src(paths.images.src)
-    // .pipe(
-    //   rename(function (defaultImageName) {
-    //     //元の画像の名前（拡張子付き）に.webpを付与する。拡張子が違う同じ名前の画像（bg.jpg,bg.png）が存在したときにまとめられてしまうのを防ぐため。
-    //     defaultImageName.basename += defaultImageName.extname;
-    //   })
-    // )
+const webpConvert = () => {
+  return src(paths.images.srcWebp, {
+    since: lastRun(webpConvert),
+  })
+    .pipe(
+      plumber({
+        errorHandler: notify.onError("Error: <%= error.message %>"),
+      })
+    )
     .pipe(webp())
     .pipe(dest(paths.images.distWebp));
-}
+};
 
-exports.convertWebp = series(convertWebp);
-
-// ファイルコピー
-// JSファイルコピー
+// JSファイルコピー（vendorsの中
 const copyScripts = () => {
   return src(paths.scripts.copy).pipe(dest(paths.scripts.dist));
 };
@@ -319,7 +302,7 @@ const watchFiles = () => {
   watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
   watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
   watch(paths.scripts.copy, series(copyScripts, browserReloadFunc));
-  watch(paths.images.src, series(imagesCompress, browserReloadFunc));
+  watch(paths.images.src, series(imagesCompress, webpConvert,browserReloadFunc));
   watch(paths.fonts.src, series(copyFonts, browserReloadFunc));
 };
 
@@ -332,7 +315,7 @@ exports.default = series(
     bundleJs,
     copyScripts,
     imagesCompress,
-    // webpConvert,
+    webpConvert,
     copyFonts
   ),
   parallel(watchFiles, browserSyncFunc)
