@@ -12,8 +12,7 @@
     <%- include('./_main-about.ejs',{meta:data.pageMeta[page]}); %>
     <%- include('../layouts/_footer.ejs',{meta:data.pageMeta[page]}); %>
   </div>
-  <script src="../assets/js/polyfill-intersection-observer.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <%- include('../layouts/_footer-scripts.ejs',{meta:data.pageMeta[page]}); %>
 </body>
 
 </html>

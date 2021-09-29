@@ -10,13 +10,10 @@
   <div class="js-loadingWrapper smooth-scroll-container" data-scroll-container>
     <%- include('./layouts/_header.ejs',{meta:data.pageMeta[page]}); %>
     <%- include('./layouts/_fv.ejs',{meta:data.pageMeta[page]}); %>
-    <%- include('./layouts/_main.ejs',{meta:data.pageMeta[page]}); %>
+    <%- include('./layouts/_main-404.ejs',{meta:data.pageMeta[page]}); %>
     <%- include('./layouts/_footer.ejs',{meta:data.pageMeta[page]}); %>
   </div>
   <%- include('./layouts/_footer-scripts.ejs',{meta:data.pageMeta[page]}); %>
-  <!-- <script>
-    var rellax = new Rellax('.rellax-target');
-  </script> -->
 </body>
 
 </html>
