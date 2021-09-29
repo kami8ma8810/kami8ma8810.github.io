@@ -1,0 +1,52 @@
+<header id="header" class="header">
+  <div class="header-container <%= meta.headerAddClass %>">
+    <div class="header-inner">
+      <p class="header-logo">
+        <a href="<%= meta.linkPath %>">
+          <img class="header-logo__img" src="<%= meta.imgPath %>header-logo.svg.webp" alt="HAYATO KAMIYAMA" />
+        </a>
+      </p>
+      <div class="header-btn-container">
+        <nav class="header-nav">
+          <ul class="header-nav__items">
+            <li class="header-nav__item">
+              <a href="<%= meta.linkPath %>">HOME</a>
+            </li>
+            <li class="header-nav__item">
+              <a href="<%= meta.linkPath %>works.html">WORKS</a>
+            </li>
+            <li class="header-nav__item">
+              <a href="<%= meta.linkPath %>about/">ABOUT</a>
+            </li>
+            <li class="header-nav__item">
+              <a href="<%= meta.linkPath %>contact.html">CONTACT</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="hamburger-btn">
+          <button type="button" id="js-drawerOpen" aria-controls="drawer" aria-expanded="false">
+            <span class="hamburger-line">
+              <span class="sr-only">メニューを開く</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<%- include('../components/_drawer.ejs') %>
+
+<!-- modal -->
+<div id="js-modalArea" class="modal-area">
+  <div id="js-modalBg" class="modal-bg"></div>
+  <div class="modal-container">
+    <div class="iframe-inner">
+      <iframe id="js-youtube" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <button id="js-closeModal" class="modal-close">
+        <span class="modal-close__icon"></span><span class="sr-only">モーダルを閉じる</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- //modal -->

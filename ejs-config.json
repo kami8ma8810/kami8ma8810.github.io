@@ -1,0 +1,40 @@
+{
+	"data": {
+		"pageMeta": {
+			"index": {
+				"title":"TOP",
+        "author":"神山 勇人 / フロントエンドエンジニア | Hayato Kamiyama / Front End Developer",
+				"description":"フロントエンドエンジニア カミヤマハヤトのポートフォリオサイト",
+				"stylePath": "./assets/css/",
+				"scriptPath": "./assets/js/",
+				"imgPath": "./assets/images/",
+				"linkPath": "./",
+				"headerAddClass": "js-topPageHeader"
+			},
+      "works": {
+				"title":"WORKS",
+				"description":"これまでの制作物",
+				"stylePath": "../assets/css/",
+				"scriptPath": "../assets/js/",
+				"imgPath": "../assets/images/",
+				"linkPath": "../"
+			},
+      "about": {
+        "title":"ABOUT",
+        "description":"Hayato Kamiyamaについて。スキル、人柄、価値観、趣味や好きなものなどについて。",
+        "stylePath": "../assets/css/",
+        "scriptPath": "../assets/js/",
+        "imgPath": "../assets/images/",
+        "linkPath": "../"
+      },
+			"contact": {
+				"title":"CONTACT",
+				"description":"お仕事のご相談から個人的なお話まで、気軽にお問い合わせください。",
+				"stylePath": "../assets/css/",
+				"scriptPath": "../assets/js/",
+				"imgPath": "../assets/images/",
+				"linkPath": "../"
+			}
+		}
+	}
+}

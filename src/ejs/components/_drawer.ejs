@@ -1,0 +1,47 @@
+<div id="js-drawer" class="drawer js-drawer" aria-expanded="false">
+  <div class="drawer__backdrop js-backdrop"></div>
+  <nav class="drawer__nav">
+    <div class="drawer__nav__header <%= meta.headerAddClass %>">
+      <div class="header-btn-container">
+        <div class="header-entry-btn">
+          <a href="https://open.talentio.com/1/c/m3/requisitions/detail/21958?utm_source=m3-lp&utm_campaign=fresh&utm_medium=web" target="_blank" rel="noopener noreferrer">ENTRY</a>
+        </div>
+        <div id="js-closeDrawer" class="drawer-close">
+          <button type="button" aria-controls="drawer" aria-expanded="false">
+            <span class="hamburger-line-close">
+              <span class="sr-only">メニューを閉じる</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer__nav__content">
+      <ul class="drawer__nav-items">
+        <li class="drawer__nav-item">
+          <a href="<%= meta.linkPath %>"><span class="en">HOME</span></a>
+        </li>
+        <li class="drawer__nav-item about">
+          <a href="<%= meta.linkPath %>about/">ABOUT</a>
+          <ul class="about-items">
+            <li class="about-item">
+              <a href="<%= meta.linkPath %>about/mission.html">ミッションと事業</a>
+            </li>
+            <li class="about-item">
+              <a href="<%= meta.linkPath %>about/culture.html">エムスリーの文化</a>
+            </li>
+            <li class="about-item">
+              <a href="<%= meta.linkPath %>about/data.html">数字で見る成長環境</a>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer__nav-item person">
+          <a href="<%= meta.linkPath %>about.html">ABOUT</a>
+        </li>
+        <li class="drawer__nav-item">
+          <a href="<%= meta.linkPath %>contact.html">CONTACT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

@@ -1,13 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
+const Path = require("path");
+const Webpack = require("webpack");
 
 module.exports = {
-  mode: 'production',
+  mode: "production",
   // mode: 'development',
-  entry: './src/js/index.js',
+  entry: "./src/js/index.js",
   output: {
-    path: path.resolve(__dirname, './public/assets/js'),
-    filename: 'main.js',
+    path: Path.resolve(__dirname, "./public/assets/js"),
+    filename: "main.js",
   },
   // optimization: {
   //   splitChunks: {
@@ -36,24 +36,24 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
-            // options: {
-            //   presets: ['@babel/preset-env'],
-            // },
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+            },
           },
         ],
       },
     ],
   },
   plugins: [
-    // 複数のJSファイルでインポートしているjQueryをまとめる
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery',
+    // 複数のJSファイルでインポートしているものをまとめる
+    new Webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery",
     }),
-    new webpack.ProvidePlugin({
-      gsap: 'gsap',
-      ScrollTrigger: 'gsap/ScrollTrigger',
+    new Webpack.ProvidePlugin({
+      gsap: "gsap",
+      ScrollTrigger: "gsap/ScrollTrigger",
     }),
   ],
   performance: {

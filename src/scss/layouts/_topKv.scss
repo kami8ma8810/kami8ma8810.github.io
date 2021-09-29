@@ -1,0 +1,199 @@
+@use "../global"as *;
+
+// KVのテキスト用z-index
+$zAnime: (layer3,layer2,layer1);
+@function zAnime($layer) {
+  @return index($zAnime, $layer);
+}
+
+.top-kv {
+  position: relative;
+  z-index: z-index(body);
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  &.is-hidden{
+    height: 110vh;
+    .kv-animation{
+      display: none!important;
+      min-height: 0!important;
+      padding: 0!important;
+    }
+    .kv-animation__layer{
+      display: none;
+    }
+    .kv-title{
+      margin-top: -10vh;
+      @include mq(tab-over) {
+        margin-top: -1vh;
+      }
+      @include mq(xl) {
+        margin-top: 0;
+      }
+      transform: none!important;
+    }
+  }
+}
+
+.kv-animation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  @include mq(tab-over) {
+    min-width: 1366px;
+  }
+  @include mq(xl) {
+    min-width: 1536px;
+  }
+  @include mq(pc-md) {
+    min-width:1920px;
+  }
+}
+
+.kv-animation__layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+}
+
+
+.kv-title{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+
+  // margin-top: -112vh;
+  margin-top: -150vh;
+  pointer-events: none;
+  // background-color: #999;//検証用
+  @include mq(lg) {
+    margin-top: -80vh;
+  }
+  // @include mq(tab-over) {
+  //   margin-top: -120vh;
+  // }
+  @include mq(xl) {
+    // margin-top: -120vh;
+    margin-top: -170vh;
+  }
+}
+.kv-title__text{
+  display: inline-block;
+  width: vw(698);
+  text-align: center;
+  @include gotham;
+  @include mq(xl) {
+    width: 1113px;
+    font-size: 80px;
+  }
+  &:first-of-type{
+    margin-bottom: 1.5em;
+    @include mq(xl) {
+      margin-bottom: 73px;
+    }
+  }
+  img{
+    display: inline-block;
+  }
+  .text-kv01{
+    width: vw(640);
+    max-width:981px;
+    height: auto;
+    // margin-left: .1em;
+    margin-left: -1.4em;
+    @include mq(xl) {
+      margin-right:31px;
+      margin-left: 0;
+    }
+  }
+  .text-kv02{
+    width: vw(698);
+    max-width:1071px;
+    height: auto;
+    // margin-left: 0.9em;
+    @include mq(xl) {
+      // width:1069px;
+      // margin-left: 75px;
+      margin-left: 42px;
+    }
+  }
+}
+
+.kv-scroll-vertical{
+  position: absolute;
+  bottom: vw(12);
+  left: 2.4%;
+  z-index: 1000;
+  display: inline-block;
+  padding-top: vw(156);
+  overflow: hidden;
+  font-size: vw(20);
+  line-height: 1;
+  color: black;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-orientation: mixed;
+  @include roboto-regular;
+  @include mq(md) {
+    font-size: 16px;
+  }
+
+  @include mq(xl) {
+    bottom: 38.5%;
+    left: 3%;
+    padding-top: 145px;
+    transform: rotate(180deg);
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 1px;
+    height: vw(150);
+    content: "";
+    background: black;
+    animation: sdl 2s cubic-bezier(1, 0, 0, 1) infinite;
+    @include mq(xl) {
+      height:135px;
+    }
+  }
+  @keyframes sdl {
+    0% {
+      transform: scale(1, 0);
+      transform-origin: 0 100%;
+    }
+    30% {
+      transform: scale(1, 1);
+      transform-origin: 0 100%;
+    }
+    70% {
+      transform: scale(1, 1);
+      transform-origin: 0 0;
+    }
+    100% {
+      transform: scale(1, 0);
+      transform-origin: 0 0;
+    }
+  }
+  @include mq(xl) {
+    display:none;
+  }
+  &.--pc{
+    display: none;
+    @include mq(xl) {
+      display:inline-block;
+    }
+  }
+}

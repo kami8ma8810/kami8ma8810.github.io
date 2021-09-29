@@ -18,8 +18,8 @@ body {
     "Hiragino Sans",
     Meiryo,
     sans-serif;
-  color: $black;
-  background-color: $white;
+  color: $colorPrimaryBlack;
+  background-color: $colorPrimaryWhite;
   -webkit-font-smoothing: antialiased;
   ::selection{
     color: #fff;
@@ -61,7 +61,6 @@ img {
   overflow: hidden;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
-  white-space: nowrap;
   border: 0;
 }
 .js-srOnly{

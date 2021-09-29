@@ -10,6 +10,24 @@ $lightYellow:#eceec4;
 $lightBlue:#dee7f4;
 $tagGray:#d2d2dc;
 
+$colorBlack:#202020 !default;
+$colorWhite:#fff !default;
+$colorSky:#58bee4 !default;
+$colorLightBlue:#e4f3f9 !default;
+$colorDarkBlue:#275363 !default;
+
+/* Color Theme Swatches in Hex */
+$colorPrimaryBlack: #222222!default;
+$colorPurple: #4D4F73!default;
+// $colorNavy: #050E40!default;
+$colorNavy: #030824!default;
+$colorPrimaryWhite: #E9F1F2!default;
+$colorLightBlue: #84D9D9!default;
+$colorLightMint: #7CD2B3!default;
+$colorMint: #3eb489!default;
+$colorPrimaryRed:#d7003a!default;
+
+
 // width/height
 $spInnerPer: 87.24%;
 $pcPerInner:73.2%;// 1000px÷1366px
@@ -18,17 +36,17 @@ $pcMax:1366px;
 
 // ブレイクポイント
 $breakpoints: (
-  "xs": (max-width: 374px),
+  "zero": (min-width: 0),
+  "xs": (min-width: 375px),
   "s": (min-width: 430px),
   "sm": (min-width: 520px),
   "md": (min-width: 768px),
-  "mdh": (min-width: 769px),
   "lg": (min-width: 960px),
   "tab": (min-width: 1024px),
-  "tabOver": (min-width: 1025px),
+  "tab-over": (min-width: 1025px),
   "xl": (min-width: 1366px),
-  "xxl": (min-width: 1536px),
-  "xxxl": (min-width: 1920px)) !default;
+  "pc-md": (min-width: 1536px),
+  "pc-lg": (min-width: 1920px)) !default;
 
 //pxをvwに変換
 @function vw($size, $viewport: 750) {
@@ -76,6 +94,12 @@ $yugothic: "Yu Gothic Medium",
   "メイリオ",
   sans-serif;
 
+@font-face {
+  font-family: "gotham";
+  src: url("../fonts/gotham.woff2") format("woff2");
+  src: url("../fonts/gotham.woff") format("woff");
+  font-display: swap;
+}
 @font-face {
   font-family: "SortsMillGoudy";
   src: url("../fonts/SortsMillGoudy.woff2") format("woff2"),

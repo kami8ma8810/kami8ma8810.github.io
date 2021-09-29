@@ -1,0 +1,236 @@
+@use "../global"as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // z-index:-1;
+  z-index: z-index(header);
+  width: 100%;
+  pointer-events: none;
+  // background-color: white;
+  // mix-blend-mode: multiply;
+  // &.is-no-blend{
+  //   mix-blend-mode: normal;
+  // }
+  // &.is-show{
+  // }
+}
+
+.header-container{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    content: "";
+    background-color: $colorMint;
+    opacity: 0;
+  }
+  &.is-show {
+    // background-color: #fff;
+    &::after {
+      opacity: 1;
+
+      @include animation(
+        $name: showUpBox,
+        $duration: .8s,
+        $timing-function: $easeInOutQuint
+      );
+    }
+  }
+
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: vw(10)  vw(20);
+  opacity: 1;
+  transition: all .4s ease;
+  @include gotham;
+  @include mq(lg) {
+    padding:20px 40px;
+  }
+  .js-topPageHeader &{
+    visibility: hidden;
+    opacity: 0;
+  }
+  // .js-topPageBackHeader &{
+  //   visibility: hidden;
+  //   opacity: 0;
+  // }
+
+  .is-show & {
+    visibility: visible;
+    opacity: 1;
+    @include animation(
+      $name: showUpText,
+      $duration: .8s,
+      $timing-function: $easeInOutQuint,
+      $fill-mode: none
+    );
+  }
+  // .is-showLate &{
+  //   visibility: visible;
+  //   opacity: 1;
+  //   @include animation(
+  //     $name: showUpText,
+  //     $duration: .8s,
+  //     $timing-function: $easeInOutQuint,
+  //     $delay:.2s,
+  //     $fill-mode: none
+  //   );
+  // }
+}
+
+.header-logo{
+  position: relative;
+  pointer-events: all;
+  a{
+    display: inline-block;
+    width: vw(350);
+    @include mq(lg) {
+      width: 350px
+    }
+  }
+  &__white{
+    display: none;
+  }
+}
+
+
+.header-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: all;
+}
+.header-nav{
+  display: none;
+  @include mq(lg) {
+  display: block;
+  }
+  &__items{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &__item{
+    & + .header-nav__item{
+      margin-left: 40px;
+    }
+    &.is-current{
+      color: $colorMint;
+      pointer-events: none;
+    }
+  }
+}
+
+.hamburger-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: vw(65);
+  height: vw(60);
+  @include mq(lg) {
+    display: none;
+    // width: 65px;
+    // height:39px;
+  }
+}
+
+.hamburger-btn button {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  width: vw(65);
+  height:100%;
+  padding: 0;
+  margin: auto;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  appearance: none;
+  @include mq(lg) {
+    width: 65px;
+  }
+}
+
+.hamburger-line {
+  position: absolute;
+  top: vw(-15);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: vw(65);
+  height: 4px;
+  margin: auto;
+  background-color: $colorMint;
+
+  @include mq(lg) {
+    top: -15px;
+    width: 65px;
+    height: 4px;
+  }
+  &::before {
+    position: absolute;
+    top: vw(15);
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: inherit;
+    transition: inherit;
+    @include mq(lg) {
+      top: 15px;
+    }
+  }
+}
+
+@keyframes showUpBox {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  50.1% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+@keyframes showUpText {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  50.1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

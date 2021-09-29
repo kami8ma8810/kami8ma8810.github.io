@@ -127,7 +127,7 @@
   text-align: center;
   transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 1.4s .4s;
   transform: translate3d(-100%, 0,0);
-  @include mq(tabOver) {
+  @include mq(tab-over) {
     transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 1.4s .2s;
   }
 }
@@ -138,7 +138,7 @@
   display: block;
   transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 1.4s .4s;
   transform: translate3d(100%, 0,0);
-  @include mq(tabOver) {
+  @include mq(tab-over) {
     transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 1.4s .2s;
   }
 }

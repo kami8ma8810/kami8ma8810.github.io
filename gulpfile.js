@@ -1,80 +1,88 @@
-const { src, dest, watch, lastRun, series, parallel } = require('gulp');
+const { src, dest, watch, lastRun, series, parallel } = require("gulp");
 
-const fs = require('fs');
+const fs = require("fs");
 
 // html
-const htmlMin = require('gulp-htmlmin');
-const prettify = require('gulp-prettify');
-const ejs = require('gulp-ejs');
-const rename = require('gulp-rename');
-const replace = require('gulp-replace'); //余計なテキストを削除
+const htmlMin = require("gulp-htmlmin");
+const prettify = require("gulp-prettify");
+const ejs = require("gulp-ejs");
+const rename = require("gulp-rename");
+const replace = require("gulp-replace"); //余計なテキストを削除
 
 // Sass
-const sass = require('gulp-dart-sass');
-const notify = require('gulp-notify');
-const plumber = require('gulp-plumber');
-const postCss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
-const gcmq = require('gulp-group-css-media-queries');
-const cssNano = require('gulp-cssnano');
+const sass = require("gulp-dart-sass");
+const notify = require("gulp-notify");
+const plumber = require("gulp-plumber");
+const postCss = require("gulp-postcss");
+const autoprefixer = require("autoprefixer");
+const gcmq = require("gulp-group-css-media-queries");
+const cssNano = require("gulp-cssnano");
 
 // JavaScript
-const babel = require('gulp-babel');
-const uglify = require('gulp-uglify');
+const babel = require("gulp-babel");
+const uglify = require("gulp-uglify");
+const terser = require("gulp-terser"); //ES6対応圧縮
 // webpack
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
-const webpackStream = require('webpack-stream'); // gulpでwebpackを使うために必要なプラグイン
+const webpack = require("webpack");
+const webpackConfig = require("./webpack.config");
+const webpackStream = require("webpack-stream"); // gulpでwebpackを使うために必要なプラグイン
 
 // 画像圧縮
-const imageMin = require('gulp-imagemin');
-const pngQuant = require('imagemin-pngquant');
-const mozJpeg = require('imagemin-mozjpeg');
-const svgo = require('gulp-svgo');
+const imageMin = require("gulp-imagemin");
+const pngQuant = require("imagemin-pngquant");
+const mozJpeg = require("imagemin-mozjpeg");
+const svgo = require("gulp-svgo");
+const webp = require("gulp-webp"); //webpに変換
 
 // ブラウザ同期
-const browserSync = require('browser-sync').create();
+const browserSync = require("browser-sync").create();
 
 //パス設定
 const paths = {
   html: {
-    src: ['./src/ejs/**/*.ejs', '!' + './src/ejs/**/_*.ejs'],
-    dist: './public/',
-    watch: './src/ejs/**/*.ejs',
+    src: ["./src/ejs/**/*.ejs", "!" + "./src/ejs/**/_*.ejs"],
+    dist: "./public/",
+    watch: "./src/ejs/**/*.ejs",
   },
   styles: {
-    src: './src/scss/**/*.scss',
-    dist: './public/assets/css/',
-    map: './map',
+    src: "./src/scss/**/*.scss",
+    dist: "./public/assets/css/",
+    map: "./map",
   },
   scripts: {
-    src: './src/js/**/*.js',
-    dist: './public/assets/js/',
+    src: ["./src/js/**/*.js", "!" + "./src/js/**/vendors/*.js"], //外部のライブラリファイルはコンパイルしないでコピーする
+    copy: "./src/js/**/vendors/*.js",
+    dist: "./public/assets/js/",
   },
   images: {
-    src: './src/images/**/*.{jpg,jpeg,png,gif,svg}',
-    dist: './public/assets/images/',
+    src: "./src/images/**/*.{jpg,jpeg,png,gif,svg}",
+    dist: "./public/assets/images/",
+    distWebp: "./public/assets/images/webp/",
+  },
+  fonts: {
+    src: "./src/fonts/**/*.{off,ttf,woff,woff2}",
+    dist: "./public/assets/fonts/",
   },
   clean: {
-    all: './public/',
-    assets: ['./public/assets/css/', './public/assets/js/'],
-    images: './public/assets/images/',
+    all: "./public/",
+    assets: ["./public/assets/css/", "./public/assets/js/"],
+    images: "./public/assets/images/",
   },
 };
 
 // ejsコンパイル
 const htmlFunc = () => {
-  const data = JSON.parse(fs.readFileSync('./src/ejs/data.json'));
+  const data = JSON.parse(fs.readFileSync("./ejs-config.json"));
   return src(paths.html.src)
     .pipe(
       plumber({
-        errorHandler: notify.onError('Error: <%= error.message %>'),
+        errorHandler: notify.onError("Error: <%= error.message %>"),
       })
     )
     .pipe(ejs(data)) //ejsをまとめる
     .pipe(
       rename({
-        extname: '.html',
+        extname: ".html",
       })
     ) //拡張子をhtmlに
     .pipe(
@@ -91,7 +99,7 @@ const htmlFunc = () => {
         indent_with_tabs: true,
       })
     )
-    .pipe(replace(/[\s\S]*?(<!DOCTYPE)/, '$1'))
+    .pipe(replace(/[\s\S]*?(<!DOCTYPE)/, "$1"))
     .pipe(dest(paths.html.dist))
     .pipe(browserSync.stream());
 };
@@ -104,14 +112,14 @@ const sassCompile = () => {
     })
       .pipe(
         plumber({
-          errorHandler: notify.onError('Error: <%= error.message %>'),
+          errorHandler: notify.onError("Error: <%= error.message %>"),
         })
       )
       .pipe(
         sass({
           // outputStyle: 'expanded',
-          outputStyle: 'compressed',
-        }).on('error', sass.logError)
+          outputStyle: "compressed",
+        }).on("error", sass.logError)
       )
       .pipe(
         postCss([
@@ -119,16 +127,17 @@ const sassCompile = () => {
             // プロパティのインデントを整形しない
             cascade: false,
             // IE11のgrid対応
-            grid: 'autoplace',
+            grid: "autoplace",
           }),
         ])
       )
       //メディアクエリをまとめる
       .pipe(gcmq())
+      //圧縮
       .pipe(cssNano())
       .pipe(
         dest(paths.styles.dist, {
-          sourcemaps: './map',
+          sourcemaps: "./map",
         })
       )
       .pipe(browserSync.stream())
@@ -141,18 +150,19 @@ const jsBabel = () => {
     src(paths.scripts.src)
       .pipe(
         plumber({
-          errorHandler: notify.onError('Error: <%= error.message %>'),
+          errorHandler: notify.onError("Error: <%= error.message %>"),
         })
       )
       .pipe(
         // Babel変換
         babel({
-          presets: ['@babel/preset-env'],
+          presets: ["@babel/preset-env"],
         })
       )
-      .pipe(dest(paths.scripts.dist))
+      // .pipe(dest(paths.scripts.dist))
       // JS圧縮
-      .pipe(uglify())
+      // .pipe(uglify())
+      .pipe(terser())
       .pipe(dest(paths.scripts.dist))
   );
 };
@@ -171,7 +181,7 @@ const imagesCompress = () => {
   })
     .pipe(
       plumber({
-        errorHandler: notify.onError('Error: <%= error.message %>'),
+        errorHandler: notify.onError("Error: <%= error.message %>"),
       })
     )
     .pipe(
@@ -225,15 +235,56 @@ const imagesCompress = () => {
     .pipe(dest(paths.images.dist));
 };
 
+// webp変換
+// const webpConvert = () => {
+//   return src(paths.images.src, {
+//     since: lastRun(webpConvert),
+//   })
+//     .pipe(
+//       plumber({
+//         errorHandler: notify.onError("Error: <%= error.message %>"),
+//       })
+//     )
+//     .pipe(
+//       rename({
+//         extname:".webp"
+//       })
+//     )
+//     .pipe(dest(paths.images.distWebp));
+// };
+function convertWebp() {
+  return src(paths.images.src)
+    .pipe(
+      rename(function (defaultImageName) {
+        //元の画像の名前（拡張子付き）に.webpを付与する。拡張子が違う同じ名前の画像（bg.jpg,bg.png）が存在したときにまとめられてしまうのを防ぐため。
+        defaultImageName.basename += defaultImageName.extname;
+      })
+    )
+    .pipe(webp())
+    .pipe(dest(paths.images.dist));
+}
+
+exports.convertWebp = series(convertWebp);
+
+// ファイルコピー
+// JSファイルコピー
+const copyScripts = () => {
+  return src(paths.scripts.copy).pipe(dest(paths.scripts.dist));
+};
+// fontコピー
+const copyFonts = () => {
+  return src(paths.fonts.src).pipe(dest(paths.fonts.dist));
+};
+
 // ローカルサーバー起動
 const browserSyncFunc = (done) => {
   browserSync.init({
     //デフォルトのconnectedのメッセージ非表示
     notify: false,
     server: {
-      baseDir: './',
+      baseDir: "./",
     },
-    startPath: './public/index.html',
+    startPath: "./public/index.html",
     reloadOnRestart: true,
   });
   done();
@@ -246,7 +297,8 @@ const browserReloadFunc = (done) => {
 };
 
 // ファイル削除
-const clean = require('gulp-clean');
+const clean = require("gulp-clean");
+const { web } = require("webpack");
 function cleanAll(done) {
   src(paths.clean.all, { read: false }).pipe(clean());
   done();
@@ -266,12 +318,23 @@ const watchFiles = () => {
   watch(paths.styles.src, series(sassCompile));
   watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
   watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
+  watch(paths.scripts.copy, series(copyScripts, browserReloadFunc));
   watch(paths.images.src, series(imagesCompress, browserReloadFunc));
+  watch(paths.fonts.src, series(copyFonts, browserReloadFunc));
 };
 
 // npx gulp実行処理
 exports.default = series(
-  parallel(htmlFunc, sassCompile, jsBabel, bundleJs),
+  parallel(
+    htmlFunc,
+    sassCompile,
+    jsBabel,
+    bundleJs,
+    copyScripts,
+    imagesCompress,
+    // webpConvert,
+    copyFonts
+  ),
   parallel(watchFiles, browserSyncFunc)
 );
 
@@ -282,3 +345,6 @@ exports.cleanImages = series(cleanImages);
 
 // バンドルのみ
 exports.bundle = series(bundleJs);
+
+// webp変換のみ
+// exports.webpConvert = series(webpConvert);
