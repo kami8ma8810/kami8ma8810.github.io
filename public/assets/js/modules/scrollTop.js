@@ -1,1 +1,1 @@
-"use strict";function scrollTop(){$("#js-scrollTop").on("click",(function(){return $("body,html").animate({scrollTop:0},800),!1}))}Object.defineProperty(exports,"__esModule",{value:!0}),exports.scrollTop=scrollTop,scrollTop();
+"use strict";

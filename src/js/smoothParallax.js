@@ -1,13 +1,11 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger); //スクロールトリガーを使用するのに必須
 import LocomotiveScroll from "locomotive-scroll";
 
 export function smoothParallax() {
-  gsap.registerPlugin(ScrollTrigger); //スクロールトリガーを使用するのに必須
 
-  // エラーを非表示
+  // GSAPのコンソール注意を非表示
   gsap.config({
     nullTargetWarn: false,
   });
@@ -15,10 +13,8 @@ export function smoothParallax() {
   // Locomotive/ScrollTriggerの設定
   const locoScroll = new LocomotiveScroll({
     el: document.querySelector(".smooth-scroll-container"),
-    // multiplier: 0.9, // スクロールの速度（値が小さいほど遅くなる）
-    multiplier: 1,
+    multiplier: 1,// スクロールの速度（値が小さいほど遅くなる default:0.8）
     smooth: true,
-
     smartphone: {
       // smooth: false,//慣性スクロール無効
       smooth: true,
@@ -29,8 +25,9 @@ export function smoothParallax() {
       breakpoint: 1024, //1024px以下までをタブレットとして認識
     },
   });
-  // Locomotiveが更新されるたびに、ScrollTriggerも更新する
+  // スクロールでScrollTriggerも更新する
   locoScroll.on("scroll", ScrollTrigger.update);
+  locoScroll.on("resize", ScrollTrigger.update);
 
   // Locomotiveがスムースさせる要素（.smooth-scroll-container）を使用しているため、この要素に対してScrollTriggerはスクローラープロキシメソッドを使用させる 参考：https://greensock.com/docs/v3/Plugins/ScrollTrigger/static.scrollerProxy
   ScrollTrigger.scrollerProxy(".smooth-scroll-container", {
@@ -48,7 +45,6 @@ export function smoothParallax() {
       };
     },
   });
-  // Locomotive/ScrollTriggerの設定 end
 
   // ------------------------------
   // GSAP parallax
@@ -56,42 +52,88 @@ export function smoothParallax() {
 
   // パララックス効果を持つ要素のコンテナ
   // ------------------------------
-  let parallaxElements = Array.prototype.slice.call(
-    document.querySelectorAll(".parallax-container")
-  );
-  let self = this;
+  // let parallaxElements = Array.prototype.slice.call(
+  //   document.querySelectorAll(".parallax-container")
+  // );
+  // let self = this;
 
   // parallax-container内の要素（boxまたはboxTop）にパララックス効果を持たせる
-  parallaxElements.forEach(function (self) {
-    let boxTop = self.querySelectorAll(".parallaxTop");
-    let box = self.querySelectorAll(".parallax");
+  // parallaxElements.forEach(function (self) {
+  //   let boxTop = self.querySelectorAll(".parallaxTop");
+  //   let box = self.querySelectorAll(".parallax");
 
-    // FVで既にビューポートに入っているセクションの発火
-    gsap.to(boxTop, {
-      scrollTrigger: {
-        scroller: ".smooth-scroll-container",
-        scrub: true,
-        trigger: self,
-        start: "top 0%",
-        end: "bottom 0%",
-      },
-      y: (i, target) => -innerHeight * target.dataset.speed,
-      ease: "none",
-    });
+  //   // FVで既にビューポートに入っているセクションの発火
+  //   gsap.to(boxTop, {
+  //     scrollTrigger: {
+  //       scroller: ".smooth-scroll-container",
+  //       scrub: true,
+  //       trigger: self,
+  //       start: "top 0%",
+  //       end: "bottom 0%",
+  //     },
+  //     y: (i, target) => -innerHeight * target.dataset.speed,
+  //     ease: "none",
+  //   });
 
-    // 要素がビューポートに入ったらアニメーション発火
-    gsap.to(box, {
-      scrollTrigger: {
-        scroller: ".smooth-scroll-container",
-        scrub: true,
-        trigger: self,
-        start: "top 100%",
-        end: "bottom 0%",
-      },
-      y: (i, target) => -innerHeight * target.dataset.speed,
-      ease: "none",
-    });
+  //   // 要素がビューポートに入ったらアニメーション発火
+  //   gsap.to(box, {
+  //     scrollTrigger: {
+  //       scroller: ".smooth-scroll-container",
+  //       scrub: true,
+  //       trigger: self,
+  //       start: "top 100%",
+  //       end: "bottom 0%",
+  //     },
+  //     y: (i, target) => -innerHeight * target.dataset.speed,
+  //     ease: "none",
+  //   });
+  // });
+const spanWrapText = (target) => {
+  const nodes = [...target.childNodes]; // ノードリストを配列にする
+  let returnText = ''; // 最終的に返すテキスト
+
+  for (const node of nodes) {
+    if (node.nodeType == 3) {
+      //テキストの場合
+      const text = node.textContent.replace(/\r?\n/g, ''); //テキストから改行コード削除
+      const splitText = text.split(''); // 一文字ずつ分割
+      for (const char of splitText) {
+        returnText += `<span>${char}</span>`; // spanタグで挟んで連結
+      }
+    } else {
+      //テキスト以外の場合
+      //<br>などテキスト以外の要素をそのまま連結
+      returnText += node.outerHTML;
+    }
+  }
+  return returnText;
+};
+
+const bubbles = [...document.querySelectorAll('.js-splitText')];
+for (const bubble of bubbles) {
+  bubble.innerHTML = spanWrapText(bubble);
+
+  // spanたちを配列にし、それをプロパティとして持っておく
+  bubble.spans = bubble.querySelectorAll('span');
+
+  // scrollTriggerによって発火するTimelineを作成
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: bubble, // 吹き出しをアニメーション発火のトリガーに
+      start: 'top 90%', // 吹き出しの上部（TOP）が、画面の上から90%の位置を通過したらスタート
+    },
   });
+
+  // アニメーションタイムライン。上から順に動作する
+  tl.from(bubble, {
+    opacity: 0,
+    y: '10%',
+  }).from(bubble.spans, {
+    opacity: 0,
+    duration: 0.01,
+    stagger: 0.03,
+  });
+}
 
   // -----------------------
   // TOPページ文字散らばるアニメーションの動き
@@ -230,7 +272,6 @@ export function smoothParallax() {
   }
 
   if (document.querySelector(".js-topPageHeader") !== null) {
-    // 医療×ITで世界を変える
     ScrollTrigger.create({
       scroller: ".smooth-scroll-container",
       trigger: ".js-titleAnime",

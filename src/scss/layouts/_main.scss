@@ -9,6 +9,16 @@
     color: #fff;
   }
 }
+.js-test,.js-test2{
+  opacity: 0;
+  transition: opacity 1s ease-in;
+  .char {
+    display: inline-block;
+  }
+  &.is-show{
+    opacity: 1;
+  }
+}
 // あとでけす
 
 

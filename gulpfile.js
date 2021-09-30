@@ -46,6 +46,7 @@ const paths = {
   },
   styles: {
     src: "./src/scss/**/*.scss",
+    copy: "./src/scss/vendors/*.{css,scss}",
     dist: "./public/assets/css/",
     map: "./map",
   },
@@ -250,7 +251,7 @@ const webpConvert = () => {
     .pipe(dest(paths.images.distWebp));
 };
 
-// JSファイルコピー（vendorsの中
+// JSファイルコピー（vendorsフォルダ
 const copyScripts = () => {
   return src(paths.scripts.copy).pipe(dest(paths.scripts.dist));
 };
@@ -258,6 +259,12 @@ const copyScripts = () => {
 const copyFonts = () => {
   return src(paths.fonts.src).pipe(dest(paths.fonts.dist));
 };
+
+// CSSファイルコピー（vendorsフォルダ
+const copyStylesheets = ()=>{
+  return src(paths.styles.copy).pipe(dest(paths.styles.dist));
+}
+
 
 // ローカルサーバー起動
 const browserSyncFunc = (done) => {
@@ -299,6 +306,7 @@ function cleanImages(done) {
 const watchFiles = () => {
   watch(paths.html.watch, series(htmlFunc, browserReloadFunc));
   watch(paths.styles.src, series(sassCompile));
+  watch(paths.styles.copy, series(copyStylesheets));
   watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
   watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
   watch(paths.scripts.copy, series(copyScripts, browserReloadFunc));
@@ -311,6 +319,7 @@ exports.default = series(
   parallel(
     htmlFunc,
     sassCompile,
+    copyStylesheets,
     jsBabel,
     bundleJs,
     copyScripts,

@@ -23,6 +23,7 @@
 		<meta name="twitter:title" content="TOP">
 		<meta name="twitter:description" content="フロントエンドエンジニア カミヤマハヤトのポートフォリオサイト">
 		<meta name="thumbnail" content="./assets/images/ogp-lg.jpg">
+		<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 		<link rel="stylesheet" href="./assets/css/style.css">
 	</head>
 	<body>
@@ -123,9 +124,37 @@
 					<div class="kv-scroll-vertical js-scrollVertical">scroll</div>
 				</h1>
 			</div>
-			<main id="js-topContent" class="top-main parallax-container" data-scroll-section>
+			<main id="js-topContent container" class="top-main parallax-container" data-scroll-section>
 				<section class="movie">
 					<button class="js-openModal">モーダルオープン</button>
+					<button id="chars">アニメーションスタート</button>
+					<p class="js-splitText" style="margin-bottom: 50vh;">スプリットテキストで一文字ずつ表示されますスプリットテキストで一文字ずつ表示されますスプリットテキストで一文字ずつ表示されます</p>
+					<p class="js-splitText" style="margin-bottom: 50vh;">スプリットテキストで一文字ずつ表示されますスプリットテキストで一文字ずつ表示されますスプリットテキストで一文字ずつ表示されます</p>
+					<p class="js-splitText" style="margin-bottom: 50vh;">スプリットテキストで一文字ずつ表示されますスプリットテキストで一文字ずつ表示されますスプリットテキストで一文字ずつ表示されます</p>
+				</section>
+				<section class="section-swiper">
+					<div class="swiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="./assets/images/img-blend1.jpg" alt="" width="" height="">
+							</div>
+							<div class="swiper-slide">
+								<img src="./assets/images/img-blend2.jpg" alt="" width="" height="">
+							</div>
+							<div class="swiper-slide">
+								<img src="./assets/images/img-blend3.jpg" alt="" width="" height="">
+							</div>
+							<div class="swiper-slide">
+								<img src="./assets/images/img-blend4.jpg" alt="" width="" height="">
+							</div>
+							<div class="swiper-slide">
+								<img src="./assets/images/img-blend5.jpg" alt="" width="" height="">
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+					</div>
 				</section>
 				<section class="section-topics">
 					<h2 id="topics" class="section-topics__title">TOPICS</h2>
@@ -270,6 +299,17 @@
 						</picture>
 					</div>
 				</section>
+				<div class="test">
+					<p class="js-test" style="font-size: 40px;margin-bottom: 100vh;">オブザーバーテスト（一度きりの監視）</p>
+					<p class="js-test" style="font-size: 40px;margin-bottom: 100vh;">オブザーバーテスト（一度きりの監視）</p>
+					<p class="js-test" style="font-size: 40px;margin-bottom: 100vh;">オブザーバーテスト（一度きりの監視）</p>
+					<p class="js-box" style="font-size: 40px;">オブザーバーテスト（一度きりの監視）</p>
+					<p class="js-box" style="font-size: 40px;">オブザーバーテスト（一度きりの監視）</p>
+					<p class="js-box" style="font-size: 40px;">オブザーバーテスト（一度きりの監視）</p>
+					<p class="js-test2" style="font-size: 40px;margin-bottom: 100vh;">オブザーバーテスト（何回も監視）</p>
+					<p class="js-test2" style="font-size: 40px;margin-bottom: 100vh;">オブザーバーテスト（何回も監視）</p>
+					<p class="js-test2" style="font-size: 40px;margin-bottom: 100vh;">オブザーバーテスト（何回も監視）</p>
+				</div>
 			</main>
 			<footer class="footer parallax-container" data-scroll-section>
 				<div class="c-btn__anchor">
@@ -278,6 +318,7 @@
 				<p class="footer-copyright">&copy; 2021 Hayato Kamiyama</p>
 			</footer>
 		</div>
+		<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 		<script src="./assets/js/vendors/polyfill-intersection-observer.js"></script>
 		<script src="./assets/js/main.js"></script>
 	</body>

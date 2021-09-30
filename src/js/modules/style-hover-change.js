@@ -1,6 +1,6 @@
 export default () => {
   // タッチ可能デバイスか判定
-  let isTouchCapable =
+  const isTouchCapable =
     "ontouchstart" in window ||
     (window.DocumentTouch && document instanceof window.DocumentTouch) ||
     navigator.maxTouchPoints > 0 ||

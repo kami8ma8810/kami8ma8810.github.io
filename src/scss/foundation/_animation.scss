@@ -79,19 +79,19 @@
   }
 }
 
-// .js-showEachBr span {
-//   display: inline-block;
-//   opacity: 0;
-// }
+.js-showEachBr span {
+  display: inline-block;
+  opacity: 0;
+}
 
-// .js-showEachBr.is-show span {
+.js-showEachBr.is-show span {
 
-//   @for $i from 1 through 30 {
-//     &:nth-child(#{$i}) {
-//       animation: text 1s cubic-bezier(0.3, 0.72, 0.56, 0.99) #{$i * 0.1}s forwards;
-//     }
-//   }
-// }
+  @for $i from 1 through 30 {
+    &:nth-child(#{$i}) {
+      animation: text 1s cubic-bezier(0.3, 0.72, 0.56, 0.99) #{$i * 0.1}s forwards;
+    }
+  }
+}
 // dataページ数字シャッフル
 .js-shuffleText{
   opacity: 0;
