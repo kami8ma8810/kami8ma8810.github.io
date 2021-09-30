@@ -25,8 +25,12 @@ class Main {
     loading();
     // タッチ可能デバイスの場合hoverをactiveに変換
     styleHoverChange();
-     // ヘッダーナビ現在のページハイライト
-     headerNavHighlight();
+    // ヘッダーナビ現在のページハイライト
+    headerNavHighlight();
+    // ドロワー開閉
+    toggleDrawer();
+    // モーダル開閉
+    toggleModal();
   }
   _addUserAgentClass() {
     //bodyに各UserAgentクラスを付与

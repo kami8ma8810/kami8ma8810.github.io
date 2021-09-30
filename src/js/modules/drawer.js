@@ -1,7 +1,8 @@
-// import { bodyScrollPrevent } from './modules/bodyScrollPrevent';
+// import { bodyScrollPrevent } from './modules/scroll-prevent';
 
-export function toggleDrawer() {
-  // ボタンと本体
+'use strict';
+export default () => {
+  // ボタン、ドロワー本体、レイヤー部分、の読み込み
   const openButton = document.getElementById("js-drawerOpen");
   const drawer = document.querySelector(".js-drawer");
   const closeButton = drawer.querySelector("#js-closeDrawer button");
@@ -60,5 +61,3 @@ export function toggleDrawer() {
   //   closeDrawerItems[i].addEventListener('click', onClickCloseButton, false);
   // }
 }
-
-toggleDrawer();

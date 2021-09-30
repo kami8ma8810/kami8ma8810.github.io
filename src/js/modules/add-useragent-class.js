@@ -1,3 +1,5 @@
+'use strict';
+
 const UAParser = require("ua-parser-js");
 
 const ua = (() => {

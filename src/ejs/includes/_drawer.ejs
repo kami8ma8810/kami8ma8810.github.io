@@ -1,0 +1,35 @@
+<div id="js-drawer" class="drawer js-drawer" aria-expanded="false">
+  <!-- ドロワーが画面いっぱいではない場合のレイヤー部分 -->
+  <div class="drawer__backdrop js-backdrop"></div>
+  <!-- // ドロワーが画面いっぱいではない場合のレイヤー部分 -->
+  <nav class="drawer__nav">
+    <div class="drawer__nav__header <%= meta.headerAddClass %>">
+      <div class="header-btn-container">
+        <div id="js-closeDrawer" class="drawer-close">
+          <button type="button" aria-controls="drawer" aria-expanded="false">
+            <span class="hamburger-line-close">
+              <span class="sr-only">メニューを閉じる</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer__nav__content">
+      <ul class="drawer__nav-items">
+        <li class="drawer__nav-item">
+          <a href="<%= meta.linkPath %>"><span class="en">HOME</span></a>
+        </li>
+        <li class="drawer__nav-item">
+          <a href="<%= meta.linkPath %>works/">WORKS</a>
+        </li>
+        <li class="drawer__nav-item">
+          <a href="<%= meta.linkPath %>about/">ABOUT</a>
+        </li>
+        <li class="drawer__nav-item">
+          <a href="<%= meta.linkPath %>contact/">CONTACT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

@@ -1,3 +1,4 @@
+'use strict';
 export default () => {
   // ローディング画面フェードアウト
   const stopLoading = () => {

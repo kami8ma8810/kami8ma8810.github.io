@@ -1,19 +1,18 @@
 <% const page='index'; %>
 <!DOCTYPE html>
 <html lang="ja">
-<%- include('./_head.ejs',{meta:data.pageMeta[page]}); %>
+<%- include('./includes/_head.ejs',{meta:data.pageMeta[page]}); %>
 
 <body>
-  <div id="loading">
-    <div id="loading-main"></div>
+  <%- include('./includes/_loading.ejs',{meta:data.pageMeta[page]}); %>
+  <div class="smooth-scroll-container" data-scroll-container>
+    <%- include('./includes/_header.ejs',{meta:data.pageMeta[page]}); %>
+    <%- include('./includes/_modal.ejs') %>
+    <%- include('./includes/_fv.ejs',{meta:data.pageMeta[page]}); %>
+    <%- include('./includes/_main.ejs',{meta:data.pageMeta[page]}); %>
+    <%- include('./includes/_footer.ejs',{meta:data.pageMeta[page]}); %>
   </div>
-  <div class="js-loadingWrapper smooth-scroll-container" data-scroll-container>
-    <%- include('./layouts/_header.ejs',{meta:data.pageMeta[page]}); %>
-    <%- include('./layouts/_fv.ejs',{meta:data.pageMeta[page]}); %>
-    <%- include('./layouts/_main.ejs',{meta:data.pageMeta[page]}); %>
-    <%- include('./layouts/_footer.ejs',{meta:data.pageMeta[page]}); %>
-  </div>
-  <%- include('./layouts/_footer-scripts.ejs',{meta:data.pageMeta[page]}); %>
+  <%- include('./includes/_footer-scripts.ejs',{meta:data.pageMeta[page]}); %>
   <!-- <script>
     var rellax = new Rellax('.rellax-target');
   </script> -->
