@@ -9,25 +9,6 @@ module.exports = {
     path: Path.resolve(__dirname, "./public/assets/js"),
     filename: "main.js",
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //     minSize: 0, //defaultは30000
-  //     cacheGroups: {
-  //       vendor: {
-  //         //vendorは任意名
-  //         test: /node_modules/,
-  //         name: 'vendor',
-  //       },
-  //       vendorsModules: {
-  //         //vendorModulesは任意名
-  //         test: /src[\\/]js[\\/]modules/,
-  //         name: 'vendor-modules',
-  //       },
-  //       default: false,
-  //     },
-  //   },
-  // },
   module: {
     rules: [
       //追加
@@ -53,7 +34,10 @@ module.exports = {
     }),
     new Webpack.ProvidePlugin({
       gsap: "gsap",
+    }),
+    new Webpack.ProvidePlugin({
       ScrollTrigger: "gsap/ScrollTrigger",
+      // ScrollTrigger: "@terwanerik/scrolltrigger",
     }),
   ],
   performance: {

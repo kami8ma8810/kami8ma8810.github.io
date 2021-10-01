@@ -1,3 +1,5 @@
+// import jQuery from 'jquery';
+// const $ = jQuery;
 'use strict';
 export default () => {
   // ローディング画面フェードアウト
