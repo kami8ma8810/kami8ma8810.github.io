@@ -1,0 +1,24 @@
+<div class="c-drawer js-drawer" aria-expanded="false">
+  <!-- aria-controlsには開閉する要素のidを指定する -->
+  <button type="button" id="js-close-drawer" class="hamburger-close" aria-controls="drawer-nav" aria-expanded="false">
+    <span class="hamburger-close__line">
+      <span class="sr-only">メニューを閉じる</span>
+    </span>
+  </button>
+  <nav id="drawer-nav" class="drawer-nav">
+    <ul class="drawer-nav-items">
+      <li class="drawer-nav-item">
+        <a href="<%= meta.linkPath %>">HOME</a>
+      </li>
+      <li class="drawer-nav-item">
+        <a href="<%= meta.linkPath %>works/">WORKS</a>
+      </li>
+      <li class="drawer-nav-item">
+        <a href="<%= meta.linkPath %>about/">ABOUT</a>
+      </li>
+      <li class="drawer-nav-item">
+        <a href="<%= meta.linkPath %>contact/">CONTACT</a>
+      </li>
+    </ul>
+  </nav>
+</div>

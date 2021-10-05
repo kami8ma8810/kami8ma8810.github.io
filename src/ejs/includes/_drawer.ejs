@@ -1,17 +1,15 @@
 <div id="js-drawer" class="drawer js-drawer" aria-expanded="false">
   <!-- ドロワーが画面いっぱいではない場合のレイヤー部分 -->
-  <div class="drawer__backdrop js-backdrop"></div>
+  <!-- <div class="drawer__backdrop js-backdrop"></div> -->
   <!-- // ドロワーが画面いっぱいではない場合のレイヤー部分 -->
   <nav class="drawer__nav">
-    <div class="drawer__nav__header <%= meta.headerAddClass %>">
-      <div class="header-btn-container">
-        <div id="js-closeDrawer" class="drawer-close">
-          <button type="button" aria-controls="drawer" aria-expanded="false">
-            <span class="hamburger-line-close">
-              <span class="sr-only">メニューを閉じる</span>
-            </span>
-          </button>
-        </div>
+    <div class="drawer__nav__header">
+      <div id="js-closeDrawer" class="drawer-close">
+        <button type="button" aria-controls="drawer" aria-expanded="false">
+          <span class="hamburger-line-close">
+            <span class="sr-only">メニューを閉じる</span>
+          </span>
+        </button>
       </div>
     </div>
 
@@ -21,13 +19,13 @@
           <a href="<%= meta.linkPath %>"><span class="en">HOME</span></a>
         </li>
         <li class="drawer__nav-item">
-          <a href="<%= meta.linkPath %>works/">WORKS</a>
+          <a href="<%= meta.linkPath %>works/"><span class="en">WORKS</span></a>
         </li>
         <li class="drawer__nav-item">
-          <a href="<%= meta.linkPath %>about/">ABOUT</a>
+          <a href="<%= meta.linkPath %>about/"><span class="en">ABOUT</span></a>
         </li>
         <li class="drawer__nav-item">
-          <a href="<%= meta.linkPath %>contact/">CONTACT</a>
+          <a href="<%= meta.linkPath %>contact/"><span class="en">CONTACT</span></a>
         </li>
       </ul>
     </div>

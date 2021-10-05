@@ -1,6 +1,6 @@
 // import jQuery from 'jquery';
 // const $ = jQuery;
-// import { bodyScrollPrevent } from './modules/scroll-prevent';
+// import { bodyScrollPrevent } from './modules/body-scroll-prevent';
 
 // モーダル表示・非表示
 export default ()=> {

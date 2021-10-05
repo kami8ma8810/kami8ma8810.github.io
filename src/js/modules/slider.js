@@ -1,3 +1,4 @@
+'use strict';
 class Slider {
   constructor(el) {
     this.el = el;

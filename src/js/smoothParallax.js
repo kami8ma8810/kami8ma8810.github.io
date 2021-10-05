@@ -538,54 +538,6 @@ for (const bubble of bubbles) {
       ScrollTrigger.refresh();
     });
   }
-  // ======================================================================================
-  // 他ページからTOPへ戻ってきたときと更新ボタンを押したときの処理
-  // ======================================================================================
-  if (document.getElementById("js-topKvAnimation") !== null) {
-    // TOPページでの処理
-    const removeElm = document.getElementById("js-topKv");
-    const headerElm = document.querySelector(".header-container");
-    const topicsElm = document.querySelector(".js-textScramble");
-    const topicsItems = document.querySelectorAll(".js-srOnly");
-
-    window.addEventListener("DOMContentLoaded", function () {
-      // アクセスフラグがない場合はアニメーションあり。フラグをつける（初回アクセス
-      if (sessionStorage.getItem("userAccessParam") == null) {
-        sessionStorage.setItem("userAccessParam", "accessDone");
-        sessionStorage.setItem("userTopParam", "topTrue");
-        // console.log(sessionStorage.getItem('userAccessParam'));
-        // console.log(sessionStorage.getItem('userTopParam'));
-      }
-      // アクセスフラグがある場合
-      else {
-        // トップフラグがある場合アニメーションあり（トップページでリロード
-        if (sessionStorage.getItem("userTopParam") === "topTrue") {
-          // console.log(sessionStorage.getItem('userAccessParam'));
-          // console.log(sessionStorage.getItem('userTopParam'));
-        }
-        // トップフラグがない場合アニメーションなし、（他ページからTOPにアクセス）
-        else {
-          removeElm.classList.add("is-hidden");
-          headerElm.classList.remove("js-topPageHeader");
-          headerElm.classList.add("is-show");
-          topicsElm.remove();
-          topicsItems.forEach((topicsItem) => {
-            topicsItem.classList.remove("js-srOnly");
-          });
-          sessionStorage.setItem("userAccessParam", "accessDone");
-          sessionStorage.setItem("userTopParam", "topTrue");
-          // console.log(sessionStorage.getItem('userAccessParam'));
-          // console.log(sessionStorage.getItem('userTopParam'));
-        }
-      }
-    });
-  } else {
-    // TOP以外のページでアクセスフラグ追加、トップフラグ削除
-    window.addEventListener("DOMContentLoaded", function () {
-      sessionStorage.setItem("userAccessParam", "accessDone");
-      sessionStorage.setItem("userTopParam", null);
-    });
-  }
 
   //ウィンドウが更新されるたびに、ScrollTriggerを更新してからLocomotive更新する必要がある
   ScrollTrigger.addEventListener("refresh", () => locoScroll.update());

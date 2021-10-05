@@ -1,4 +1,5 @@
 // ヘッダーで現在のページのナビゲーションハイライト
+"use strict";
 export default () => {
   $(function () {
     $(".header-nav__item a").each(function () {

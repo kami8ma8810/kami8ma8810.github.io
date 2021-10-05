@@ -1,4 +1,4 @@
-// import { bodyScrollPrevent } from './modules/scroll-prevent';
+// import { bodyScrollPrevent } from './modules/body-scroll-prevent';
 
 'use strict';
 export default () => {

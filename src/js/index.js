@@ -1,4 +1,5 @@
 import ua from "./modules/add-useragent-class";
+import setFillHeight from "./modules/set-fill-height";
 import loading from "./modules/loading";
 import styleHoverChange from "./modules/style-hover-change";
 import headerNavHighlight from "./modules/header-nav-highlight";
@@ -13,15 +14,48 @@ import { shuffleLettersAnime } from "./shuffleLetters";
 import IntersectionObserver from "./intersectionObserver";
 import shuffleText from "./shuffleText";
 
+import { gsap } from "gsap";
+
 document.addEventListener("DOMContentLoaded", function () {
   const main = new Main();
+});
+const drawerOpenBtn = document.querySelector("#js-drawerOpen");
+const drawerCloseBtn = document.querySelector("#js-close-drawer");
+const drawerInner = document.querySelector(".c-drawer");
+
+// slideIn from right
+let tl = gsap.timeline();
+
+gsap.set(drawerInner, { yPercent: -100 });
+
+drawerOpenBtn.addEventListener("click", () => {
+
+  console.log("open!");
+  // 2回目以降も発火させる場合はreversedの条件付けをする
+  if (!tl.reversed()) {
+    tl.to(drawerInner, { yPercent: 0, duration: 0.4 }).from(
+      ".drawer-nav-item",
+      {
+        stagger: { amount: 0.4 },
+        xPercent: -101,
+      }
+    );
+  } else {
+    tl.play();
+  }
+
+});
+drawerCloseBtn.addEventListener("click", () => {
+  console.log("close!");
+  tl.reverse();
 });
 
 class Main {
   constructor() {
     this._observers = []; //オブザーバーする要素をすべて配列にするための初期化
-    this._addUserAgentClass();
     this._init();
+    this._addUserAgentClass();
+    this._slider();
     this._scrollInit();
   }
   _init() {
@@ -29,14 +63,14 @@ class Main {
     loading();
     // タッチ可能デバイスの場合hoverをactiveに変換
     styleHoverChange();
+    // 高さ100vh調整（safari込み）
+    setFillHeight();
     // ヘッダーナビ現在のページハイライト
     headerNavHighlight();
     // ドロワー開閉
-    toggleDrawer();
+    // toggleDrawer();
     // モーダル開閉
-    toggleModal();
-    // swiperスライダー
-    this.swiperSlider = new Slider(".swiper");
+    // toggleModal();
   }
   _addUserAgentClass() {
     //bodyに各UserAgentクラスを付与
@@ -51,6 +85,11 @@ class Main {
       });
     }
   }
+  _slider() {
+    if (document.querySelector(".swiper") !== null) {
+      this.swiperSlider = new Slider(".swiper");
+    }
+  }
   /*--------------------------------------------------
   ここからオブザーバー関連
   --------------------------------------------------*/
@@ -61,14 +100,12 @@ class Main {
     return this._observers; //オブザーバーする要素を参照したときに関数を呼び出す
   }
 
-  // is-showクラスを付与するだけの処理
+  // is-showクラスを付け外しするだけの処理
   _toggleClassIsShow(el, isShow) {
     if (isShow) {
       el.classList.add("is-show");
-      console.log("is intersecting!");
     } else {
       el.classList.remove("is-show");
-      console.log("is not intersecting!");
     }
   }
 
@@ -99,6 +136,10 @@ class Main {
       this._toggleClassIsShow,
       { once: true }
     );
-    this.observers = new ScrollObserver('.swiper', this._toggleSlideAnimation.bind(this), {once: false});
+    this.observers = new ScrollObserver(
+      ".swiper",
+      this._toggleSlideAnimation.bind(this),
+      { once: false }
+    );
   }
 }
