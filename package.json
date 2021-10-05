@@ -31,6 +31,7 @@
     "babel-loader": "^8.1.0",
     "browser-sync": "^2.26.14",
     "browserslist": "^4.16.3",
+    "core-js": "^3.18.1",
     "del": "^6.0.0",
     "file-loader": "^5.1.0",
     "gulp": "^4.0.2",

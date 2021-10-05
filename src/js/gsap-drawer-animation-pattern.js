@@ -111,7 +111,6 @@ bodyScrollPrevent();
 openButton.addEventListener("click", onClickOpenButton, false);
 closeButton.addEventListener("click", onClickCloseButton, false);
 
-
 document.addEventListener("DOMContentLoaded", () => {
   if (document.body.classList.contains("pattern1")) {
     pattern1();
@@ -122,6 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.body.classList.contains("pattern3")) {
     pattern3();
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("pattern1")) pattern1();
+  if (document.getElementById("pattern2")) pattern2();
+  if (document.getElementById("pattern3")) pattern3();
 });
 /* ------------------------------------------------------------------
 アニメーション 01
@@ -137,32 +142,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 右からスライド、メニューは左からニュッ
 const pattern1 = () => {
-  let tl1 = gsap.timeline(
-    // 必要に応じてリバース終了時にリセット
-    // onReverseComplete: function () {
-    //   gsap.set([drawer, ".js-nav-item a"], { xPercent:0,yPercent:0 });
-    // },
-  );
-
+  let tl1 = gsap.timeline();
+  gsap.set(drawer, {
+    xPercent: 100,
+    visibility: "hidden",
+    ease: Power2.easeInOut,
+  });
   openButton.addEventListener("click", () => {
     // 2回目以降も発火させる場合はreversedの条件付けをする
     if (!tl1.reversed()) {
       tl1
-        .fromTo(
+        .to(
           drawer,
           {
-            visibility: "hidden",
-            xPercent: 100,
-          },{
-            visibility:'visible',
+            visibility: "visible",
             xPercent: 0,
-            duration:0.3
+            duration: 0.3,
           }
         )
         .from(".js-nav-item a", {
-          stagger: { amount: 0.6 },
+          stagger: { amount: 0.4 },
           xPercent: -100,
-          delay:-0.2
         });
     } else {
       tl1.play();
@@ -173,35 +173,31 @@ const pattern1 = () => {
   });
 };
 
-
 /* ------------------------------------------------------------------
 アニメーション 02
 ------------------------------------------------------------------ */
 // 上からスライド、メニューは下からニュッ
 const pattern2 = () => {
+  gsap.set(drawer, {
+    yPercent: -100,
+    visibility: "hidden",
+    ease: Power2.easeInOut,
+  });
+  gsap.set(".js-nav-item a", { yPercent: 100 });
   let tl2 = gsap.timeline({
-    onReverseComplete: function () {
-      gsap.set([drawer, ".js-nav-item a"], { xPercent: 0, yPercent: 0 });
-    },
-    onStart: function () {
-      gsap.set(drawer, { xPercent: 0, yPercent: -100, visibility: "hidden" });
-      gsap.set(".js-nav-item a", { xPercent: 0, yPercent: 100 });
-    },
+    // onReverseComplete: function () {
+    //   gsap.set([drawer, ".js-nav-item a"], { xPercent: 0, yPercent: 0 });
+    // },
   });
   openButton.addEventListener("click", () => {
-    console.log("パターン２実行！");
-
     if (!tl2.reversed()) {
       tl2
         .to(drawer, {
           visibility: "visible",
-          xPercent: 0,
           yPercent: 0,
-          ease: Power2.easeInOut,
         })
         .to(".js-nav-item a", {
           stagger: { amount: 0.6 },
-          xPercent: 0,
           yPercent: 0,
         });
     } else {
@@ -215,13 +211,13 @@ const pattern2 = () => {
 
 // フェードイン、メニューも順番にフェードイン
 const pattern3 = () => {
+  gsap.set([drawer, ".js-nav-item a"], { visibility: "hidden", opacity: 0 });
   let tl3 = gsap.timeline({
     onReverseComplete: function () {
-      gsap.set([drawer, ".js-nav-item a"], { clearProps: "all" });
-    },
-    onStart: function () {
-      gsap.set(drawer, { xPercent: 100, visibility: "hidden" });
-      gsap.set(".js-nav-item a", { xPercent: -100, visibility: "hidden" });
+      gsap.set([drawer, ".js-nav-item a"], {
+        visibility: "hidden",
+        opacity: 0,
+      });
     },
   });
   openButton.addEventListener("click", () => {
@@ -229,12 +225,13 @@ const pattern3 = () => {
       tl3
         .to(drawer, {
           visibility: "visible",
-          xPercent: 0,
+          opacity: 1,
           ease: Power2.easeInOut,
         })
         .to(".js-nav-item a", {
           stagger: { amount: 0.6 },
-          xPercent: 0,
+          visibility: "visible",
+          opacity: 1,
         });
     } else {
       tl3.play();

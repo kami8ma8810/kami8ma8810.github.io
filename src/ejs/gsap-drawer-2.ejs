@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GSAP Drawer Animation Pettern 02</title>
+  <link rel="stylesheet" href="./assets/css/gsap-drawer-animation-pattern.css">
+</head>
+
+<body id="pattern2">
+  <header class="header">
+    <div class="header-inner">
+      <h1>GSAP Drawer Anime</h1>
+      <button type="button" id="js-open-drawer" class="open-drawer-btn" aria-controls="js-drawer" aria-expanded="false">OPEN<span class="sr-only">メニューを開く</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="js-drawer" class="drawer" aria-expanded="false">
+    <!-- ドロワーが画面全体ではない場合の背景レイヤー -->
+    <!-- <div ids="js-backdrop" class="drawer__backdrop"></div> -->
+    <nav class="drawer-nav">
+      <ul class="drawer-nav-items">
+        <li class="drawer-nav-item js-nav-item">
+          <a href="./gsap-drawer.html">Pattern 01</a>
+        </li>
+        <li class="drawer-nav-item js-nav-item">
+          <a href="./gsap-drawer-2.html">Pattern 02</a>
+        </li>
+        <li class="drawer-nav-item js-nav-item">
+          <a href="./gsap-drawer-3.html">Pattern 03</a>
+        </li>
+      </ul>
+    </nav>
+    <button type="button" id="js-close-drawer" class="close-drawer-btn" aria-controls="js-drawer" aria-expanded="false">CLOSE<span class="sr-only">メニューを閉じる</span></button>
+  </div>
+
+  <main>
+    <p class="bold text-cover">02 上からスライドイン＆メニューを下からニュッと表示</p>
+    <code>
+      <pre>
+const pattern2 = () => {
+  gsap.set(drawer, {
+    yPercent: -100,
+    visibility: "hidden",
+    ease: Power2.easeInOut,
+  });
+  gsap.set(".js-nav-item a", { yPercent: 100 });
+  let tl2 = gsap.timeline();
+  openButton.addEventListener("click", () => {
+    if (!tl2.reversed()) {
+      tl2
+        .to(drawer, {
+          visibility: "visible",
+          yPercent: 0,
+        })
+        .to(".js-nav-item a", {
+          stagger: { amount: 0.6 },
+          yPercent: 0,
+        });
+    } else {
+      tl2.play();
+    }
+  });
+  closeButton.addEventListener("click", () => {
+    tl2.reverse();
+  });
+};</pre>
+    </code>
+    <p class="bold">ドロワーを開いている間、メインコンテンツはスクロールしないようにしてあります。</p>
+    <p class="bold">ドロワーのアニメーションはすべてJavaScriptファイル内（GSAP）で記述しています。（初期設定や見た目はCSS）</p>
+  </main>
+  <footer>
+    <p>&copy;2021 上かるび</p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+  <script src="./assets/js/gsap-drawer-animation-pattern.js"></script>
+</body>
+
+</html>
