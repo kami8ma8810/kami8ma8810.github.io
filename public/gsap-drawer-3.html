@@ -34,34 +34,39 @@
 		<main>
 			<p class="bold text-cover">03 ドロワーフェードイン＆メニューも順番にフェードイン</p>
 			<code>
-<pre>const pattern1 = () => {
-  let tl1 = gsap.timeline();
-  openButton.addEventListener("click", () => {
-    if (!tl1.reversed()) {
-      tl1
-        .fromTo(
-          drawer,
-          {
-            visibility: "hidden",
-            xPercent: 100,
-          },{
-            visibility:'visible',
-            xPercent: 0,
-            duration:0.3
-          }
-        )
-        .from(".js-nav-item a", {
-          stagger: { amount: 0.6 },
-          xPercent: -100,
-        });
-    } else {
-      tl1.play();
-    }
-  });
-  closeButton.addEventListener("click", () => {
-    tl1.reverse();
-  });
-};</pre>
+<pre>
+        const pattern3 = () => {
+          gsap.set([drawer, ".js-nav-item a"], { visibility: "hidden", opacity: 0 });
+          let tl3 = gsap.timeline({
+            onReverseComplete: function () {
+              gsap.set([drawer, ".js-nav-item a"], {
+                visibility: "hidden",
+                opacity: 0,
+              });
+            },
+          });
+          openButton.addEventListener("click", () => {
+            if (!tl3.reversed()) {
+              tl3
+                .to(drawer, {
+                  visibility: "visible",
+                  opacity: 1,
+                  ease: Power2.easeInOut,
+                })
+                .to(".js-nav-item a", {
+                  stagger: { amount: 0.6 },
+                  visibility: "visible",
+                  opacity: 1,
+                });
+            } else {
+              tl3.play();
+            }
+          });
+          closeButton.addEventListener("click", () => {
+            tl3.reverse();
+          });
+        };
+</pre>
 </code>
 			<p class="bold">ドロワーを開いている間、メインコンテンツはスクロールしないようにしてあります。</p>
 			<p class="bold">ドロワーのアニメーションはすべてJavaScriptファイル内（GSAP）で記述しています。（初期設定や見た目はCSS）</p>

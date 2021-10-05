@@ -110,7 +110,8 @@ const htmlFunc = () => {
 const sassCompile = () => {
   return (
     src(paths.styles.src, {
-      sourcemaps: true,
+      // sourcemaps: true,
+      sourcemaps: false,
     })
       .pipe(
         plumber({
