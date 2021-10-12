@@ -1,13 +1,13 @@
 const { src, dest, watch, lastRun, series, parallel } = require("gulp");
 
-const fs = require("fs");
+const fs = require("fs"); //Node.jsでファイルを操作するための公式モジュール
 
 // html
 const htmlMin = require("gulp-htmlmin");
 const prettify = require("gulp-prettify");
 const ejs = require("gulp-ejs");
 const rename = require("gulp-rename");
-const replace = require("gulp-replace"); //余計なテキストを削除
+const replace = require("gulp-replace");
 
 // Sass
 const sass = require("gulp-dart-sass");
@@ -162,7 +162,6 @@ const jsBabel = () => {
           presets: ["@babel/preset-env"],
         })
       )
-      // .pipe(dest(paths.scripts.dist))
       // JS圧縮
       // .pipe(uglify())
       .pipe(terser())
@@ -206,32 +205,29 @@ const imagesCompress = () => {
       svgo({
         plugins: [
           {
-            removeViewbox: false, //フォトショやイラレで書きだされるviewboxを消さない
+            removeViewbox: false, //フォトショやイラレで書きだされるviewboxを消すかどうか※表示崩れの原因になるのでfalse推奨。以降はお好みで。
           },
           {
-            removeMetadata: false,
+            removeMetadata: false, //<metadata>を削除するかどうか
           },
           {
-            convertColors: false,
+            convertColors: false, //rgbをhexに変換、または#ffffffを#fffに変換するかどうか
           },
           {
-            removeUnknownsAndDefaults: false,
+            removeUnknownsAndDefaults: false, //不明なコンテンツや属性を削除するかどうか
           },
           {
-            convertShapeToPath: false,
+            convertShapeToPath: false, //コードが短くなる場合だけ<path>に変換するかどうか
           },
           {
-            cleanupNumericValues: false,
+            collapseGroups: false, //重複や不要な`<g>`タグを削除するかどうか
           },
           {
-            collapseGroups: false,
+            cleanupIDs: false, //SVG内に<style>や<script>がなければidを削除するかどうか
           },
-          {
-            cleanupIDs: false,
-          },
-          {
-            mergePaths: false,
-          },
+          // {
+          //   mergePaths: false,//複数のPathを一つに統合
+          // },
         ],
       })
     )
@@ -262,10 +258,9 @@ const copyFonts = () => {
 };
 
 // CSSファイルコピー（vendorsフォルダ
-const copyStylesheets = ()=>{
+const copyStylesheets = () => {
   return src(paths.styles.copy).pipe(dest(paths.styles.dist));
-}
-
+};
 
 // ローカルサーバー起動
 const browserSyncFunc = (done) => {
@@ -289,7 +284,6 @@ const browserReloadFunc = (done) => {
 
 // ファイル削除
 const clean = require("gulp-clean");
-const { web } = require("webpack");
 function cleanAll(done) {
   src(paths.clean.all, { read: false }).pipe(clean());
   done();
@@ -311,7 +305,10 @@ const watchFiles = () => {
   watch(paths.scripts.src, series(jsBabel, browserReloadFunc));
   watch(paths.scripts.src, series(bundleJs, browserReloadFunc));
   watch(paths.scripts.copy, series(copyScripts, browserReloadFunc));
-  watch(paths.images.src, series(imagesCompress, webpConvert,browserReloadFunc));
+  watch(
+    paths.images.src,
+    series(imagesCompress, webpConvert, browserReloadFunc)
+  );
   watch(paths.fonts.src, series(copyFonts, browserReloadFunc));
 };
 
