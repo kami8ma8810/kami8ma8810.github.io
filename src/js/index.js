@@ -17,6 +17,7 @@ import shuffleText from "./shuffleText";
 import { gsap } from "gsap";
 
 document.addEventListener("DOMContentLoaded", function () {
+console.log('==========\nDOMContentLoaded\n==========');
   const main = new Main();
 });
 const drawerOpenBtn = document.querySelector("#js-drawerOpen");
@@ -75,6 +76,7 @@ class Main {
   _addUserAgentClass() {
     //bodyに各UserAgentクラスを付与
     ua.init();
+    console.log('ua-parser');
     // PCでは電話番号ボタンを無効
     const telTargets = document.querySelectorAll("a[href*='tel:']");
     for (let telTarget of telTargets) {
