@@ -1,8 +1,8 @@
-@use "../global"as *;
+@use "../global" as *;
 
-html{
+html {
   text-size-adjust: 100%;
-  -webkit-tap-highlight-color:transparent;//タップの強調色解除
+  -webkit-tap-highlight-color: transparent; //タップの強調色解除
   /* フォントサイズの正確に */
   -webkit-text-size-adjust: 100%;
   /* 文字をシャープに */
@@ -11,31 +11,31 @@ html{
 }
 
 body {
-  font-family: $yugothic,
-    "Helvetica Neue",
-    Arial,
-    "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans",
-    Meiryo,
-    sans-serif;
+  font-family: $yugothic, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
   color: $colorPrimaryBlack;
   background-color: $colorPrimaryWhite;
   -webkit-font-smoothing: antialiased;
-  ::selection{
+  ::selection {
     color: #fff;
     background: $colorMint;
   }
-  ::-moz-selection{
+  ::-moz-selection {
     color: #fff;
     background: $colorMint;
   }
-
 }
 
-a{
-  transition: opacity .4s $easeOutCubic;
+.smooth-scroll-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-a:hover ,
+
+a {
+  transition: opacity 0.4s $easeOutCubic;
+}
+a:hover,
 a:active {
   opacity: 0.5;
 }
