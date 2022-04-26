@@ -1,132 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head prefix="og:http://ogp.me/ns#">
-		<meta charset="UTF-8">
-		<title>TOP | Hayato Kamiyama Portfolio Site</title>
-		<meta name="description" content="フロントエンドエンジニア カミヤマハヤトのポートフォリオサイト">
-		<meta name="author" content="神山 勇人 / フロントエンドエンジニア | Hayato Kamiyama / Front End Developer">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="robots" content="noindex,nofollow">
-		<meta http-equiv="x-dns-prefetch-control" content="on">
-		<link rel="dns-prefetch" href="https://kami8ma8810.github.io/">
-		<link rel="canonical" href="https://kami8ma8810.github.io/">
-		<meta content="telephone=no" name="format-detection">
-		<meta property="og:site_name" content="TOP">
-		<meta property="og:title" content="TOP">
-		<meta property="og:description" content="フロントエンドエンジニア カミヤマハヤトのポートフォリオサイト">
-		<meta property="og:url" content="https://kami8ma8810.github.io/">
-		<meta property="og:image" content="./assets/images/ogp-lg.jpg">
-		<meta property="og:type" content="website">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:image:src" content="./assets/images/ogp-lg.jpg">
-		<meta name="twitter:title" content="TOP">
-		<meta name="twitter:description" content="フロントエンドエンジニア カミヤマハヤトのポートフォリオサイト">
-		<meta name="thumbnail" content="./assets/images/ogp-lg.jpg">
-		<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
-		<link rel="stylesheet" href="./assets/css/style.css">
-	</head>
-	<body>
-		<div id="loading">
-			<div id="loading-main"></div>
-		</div>
-		<div class="smooth-scroll-container" data-scroll-container>
-			<header id="header" class="header">
-				<div class="header-container js-topPageHeader">
-					<div class="header-inner">
-						<p class="header-logo">
-							<a href="./">
-								<img class="header-logo__img" src="./assets/images/header-logo.svg" alt="HAYATO KAMIYAMA">
-							</a>
-						</p>
-						<div class="header-btn-container">
-							<nav class="header-nav">
-								<ul class="header-nav__items">
-									<li class="header-nav__item">
-										<a href="./">HOME</a>
-									</li>
-									<li class="header-nav__item">
-										<a href="./works/">WORKS</a>
-									</li>
-									<li class="header-nav__item">
-										<a href="./about/">ABOUT</a>
-									</li>
-									<li class="header-nav__item">
-										<a href="./contact/">CONTACT</a>
-									</li>
-								</ul>
-							</nav>
-							<div class="hamburger-btn">
-								<button type="button" id="js-drawerOpen" aria-controls="drawer" aria-expanded="false">
-									<span class="hamburger-line">
-										<span class="sr-only">メニューを開く</span>
-									</span>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</header>
-			<div class="c-drawer js-drawer" aria-expanded="false">
-				<button type="button" id="js-close-drawer" class="hamburger-close" aria-controls="drawer-nav" aria-expanded="false">
-					<span class="hamburger-close__line">
-						<span class="sr-only">メニューを閉じる</span>
-					</span>
-				</button>
-				<nav id="drawer-nav" class="drawer-nav">
-					<ul class="drawer-nav-items">
-						<li class="drawer-nav-item">
-							<a href="./">HOME</a>
-						</li>
-						<li class="drawer-nav-item">
-							<a href="./works/">WORKS</a>
-						</li>
-						<li class="drawer-nav-item">
-							<a href="./about/">ABOUT</a>
-						</li>
-						<li class="drawer-nav-item">
-							<a href="./contact/">CONTACT</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-			<div id="js-modalArea" class="modal-area">
-				<div id="js-modalBg" class="modal-bg"></div>
-				<div class="modal-container">
-					<div class="iframe-inner">
-						<iframe id="js-youtube" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-						<button id="js-closeModal" class="modal-close">
-							<span class="modal-close__icon"></span><span class="sr-only">モーダルを閉じる</span>
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="top-kv parallax-container" id="js-topKv" data-scroll-section>
-				<div class="kv-animation js-scrollAnime" id="js-topKvAnimation">
-					<div class="kv-scroll-vertical --pc js-scrollerPc1">scroll</div>
-				</div>
-				<h1 class="kv-title js-titleAnime">
-					<div class="kv-title__text c-show-box js-showBox">
-						<span class="c-show-box__inner"> HAYATO KAMIYAMA </span>
-					</div>
-					<div class="kv-title__text c-show-box js-showBox">
-						<span class="c-show-box__inner"> PORTLOFIO SITE </span>
-					</div>
-					<div class="kv-scroll-vertical js-scrollVertical">scroll</div>
-				</h1>
-			</div>
-			<main id="js-topContent container" class="top-main parallax-container" data-scroll-section>
-				<p style="text-align: center;font-size: 5vw;">制作中</p>
-			</main>
-			<footer class="footer parallax-container" data-scroll-section>
-				<div class="c-btn__anchor">
-					<button type="button" id="js-scrollTop"><span class="sr-only">ページ最上部へスクロールする</span></button>
-				</div>
-				<p class="footer-copyright">&copy; 2021 Hayato Kamiyama</p>
-			</footer>
-		</div>
-		<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-		<script src="./assets/js/vendors/polyfill-intersection-observer.js"></script>
-		<script src="./assets/js/main.js"></script>
-	</body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INDEX</title>
+</head>
+
+<body>
+  <p>index page</p>
+  <p>改修中です。</p>
+</body>
+
 </html>
